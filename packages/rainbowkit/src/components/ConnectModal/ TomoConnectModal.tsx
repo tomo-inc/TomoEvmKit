@@ -1,35 +1,22 @@
-import React, {
-  Fragment,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { touchableStyles } from '../../css/touchableStyles';
-import { isSafari } from '../../utils/browsers';
-import { groupBy } from '../../utils/groupBy';
+import type React from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  type WalletConnector,
-  useWalletConnectors,
-} from '../../wallets/useWalletConnectors';
-import { Box } from '../Box/Box';
-import { CloseButton } from '../CloseButton/CloseButton';
-import { ConnectModalIntro } from '../ConnectModal/ConnectModalIntro';
-import { DisclaimerLink } from '../Disclaimer/DisclaimerLink';
-import { DisclaimerText } from '../Disclaimer/DisclaimerText';
-import { BackIcon } from '../Icons/Back';
-import { InfoButton } from '../InfoButton/InfoButton';
-import { ModalSelection } from '../ModalSelection/ModalSelection';
-import { AppContext } from '../RainbowKitProvider/AppContext';
-import { I18nContext } from '../RainbowKitProvider/I18nContext';
-import {
-  ModalSizeContext,
-  ModalSizeOptions,
-} from '../RainbowKitProvider/ModalSizeContext';
+  ConnectPopup,
+  ConnectHeader,
+  ConnectMain,
+  type WalletItemProps,
+} from '@tomo-wallet/uikit';
 import { WalletButtonContext } from '../RainbowKitProvider/WalletButtonContext';
-import { Text } from '../Text/Text';
-
+import {
+  useWalletConnectors,
+  type WalletConnector,
+} from '../../wallets/useWalletConnectors';
+import { groupBy } from '../../utils/groupBy';
 import { addLatestWalletId } from '../../wallets/latestWalletId';
+import { WalletStep } from '../ConnectOptions/DesktopOptions';
+import { isSafari } from '../../utils/browsers';
+import { AsyncImage } from '../AsyncImage/AsyncImage';
+import { maxWidth } from '../WalletButton/WalletButton.css';
 import {
   ConnectDetail,
   DownloadDetail,
@@ -38,38 +25,53 @@ import {
   InstructionDesktopDetail,
   InstructionExtensionDetail,
   InstructionMobileDetail,
-} from './ConnectDetails';
-import {
-  ScrollClassName,
-  sidebar,
-  sidebarCompactMode,
-} from './DesktopOptions.css';
+} from '../ConnectOptions/ConnectDetails';
+import { i18n } from '../../locales';
+import { ConnectModalIntro } from './ConnectModalIntro';
+import { Box } from '../Box/Box';
+import { touchableStyles } from '../../css/touchableStyles';
+import { Text } from '../Text/Text';
+import { CloseButton } from '../CloseButton/CloseButton';
+import { BackIcon } from '../Icons/Back';
+import googleIcon from '../../../assets/icon_google.svg';
+import xIcon from '../../../assets/icon_x.svg';
+import kakaoIcon from '../../../assets/icon_kakao.svg';
+import tgIcon from '../../../assets/icon_telegram.svg';
+import type { EthereumProvider } from '@tomo-inc/social-wallet-sdk';
+import * as styles from '../Dialog/Dialog.css';
+import { useThemeRootProps } from '../RainbowKitProvider/RainbowKitProvider';
 
-export enum WalletStep {
-  None = 'NONE',
-  LearnCompact = 'LEARN_COMPACT',
-  Get = 'GET',
-  Connect = 'CONNECT',
-  DownloadOptions = 'DOWNLOAD_OPTIONS',
-  Download = 'DOWNLOAD',
-  InstructionsMobile = 'INSTRUCTIONS_MOBILE',
-  InstructionsDesktop = 'INSTRUCTIONS_DESKTOP',
-  InstructionsExtension = 'INSTRUCTIONS_EXTENSION',
+interface Props {
+  opened: boolean;
+  onClose: () => any;
 }
 
-export function DesktopOptions({ onClose }: { onClose: () => void }) {
-  const titleId = 'rk_connect_title';
-  const [selectedOptionId, setSelectedOptionId] = useState<
-    string | undefined
-  >();
+function IconImg({
+  className,
+  src,
+  alt,
+  ...props
+}: React.DetailedHTMLProps<
+  React.ImgHTMLAttributes<HTMLImageElement>,
+  HTMLImageElement
+>) {
+  // biome-ignore lint/a11y/useAltText: no need
+  return <img alt={alt || ''} src={src} {...props} className={className} />;
+}
+
+export function TomoConnectModal({ opened, onClose }: Props) {
+  // const titleId = 'rk_connect_title';
+  // const [selectedOptionId, setSelectedOptionId] = useState<
+  // string | undefined
+  // >();
   const [selectedWallet, setSelectedWallet] = useState<WalletConnector>();
   const [qrCodeUri, setQrCodeUri] = useState<string>();
   const hasQrCode = !!selectedWallet?.qrCode && qrCodeUri;
   const [connectionError, setConnectionError] = useState(false);
-  const modalSize = useContext(ModalSizeContext);
-  const compactModeEnabled = modalSize === ModalSizeOptions.COMPACT;
-  const { disclaimer: Disclaimer } = useContext(AppContext);
-  const { i18n } = useContext(I18nContext);
+  // const modalSize = useContext(ModalSizeContext);
+  // const compactModeEnabled = modalSize === ModalSizeOptions.COMPACT;
+  // const { disclaimer: Disclaimer } = useContext(AppContext);
+  // const { i18n } = useContext(I18nContext);
   const safari = isSafari();
 
   const initialized = useRef(false);
@@ -86,18 +88,19 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
   const wallets = useWalletConnectors(mergeEIP6963WithRkConnectors)
     .filter((wallet) => wallet.ready || !!wallet.extensionDownloadUrl)
     .sort((a, b) => a.groupIndex - b.groupIndex);
+
   const unfilteredWallets = useWalletConnectors();
 
-  const groupedWallets = groupBy(wallets, (wallet) => wallet.groupName);
+  // const groupedWallets = groupBy(wallets, (wallet) => wallet.groupName);
 
-  const supportedI18nGroupNames = [
-    'Recommended',
-    'Other',
-    'Popular',
-    'More',
-    'Others',
-    'Installed',
-  ];
+  // const supportedI18nGroupNames = [
+  //   'Recommended',
+  //   'Other',
+  //   'Popular',
+  //   'More',
+  //   'Others',
+  //   'Installed',
+  // ];
 
   // If a user hasn't installed the extension we will get the
   // qr code with additional steps on how to get the wallet
@@ -160,7 +163,7 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
     }
 
     connectToWallet(wallet);
-    setSelectedOptionId(wallet.id);
+    // setSelectedOptionId(wallet.id);
 
     if (!wallet.ready) {
       setSelectedWallet(wallet);
@@ -190,7 +193,7 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
   };
 
   const clearSelectedWallet = () => {
-    setSelectedOptionId(undefined);
+    // setSelectedOptionId(undefined);
     setSelectedWallet(undefined);
     setQrCodeUri(undefined);
   };
@@ -228,6 +231,40 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
     hasExtension && selectedWallet?.mobileDownloadUrl
   );
 
+  const [walletOptions, setWalletOptions] = useState<WalletItemProps[]>([]);
+
+  const tomoWallet = wallets.find((w) => w.id === 'TomoWallet');
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: on mount logic
+  useEffect(() => {
+    let walletOpts: (WalletItemProps & { wallet: WalletConnector })[] =
+      wallets.map((w) => {
+        return {
+          key: w.id,
+          name: w.name,
+          desc: w.name,
+          icon: (
+            <AsyncImage
+              background={'transparent'}
+              // We want to use pure <img /> element
+              // to avoid bugs with eip6963 icons as sometimes
+              // background: url(...) does not work
+              useAsImage={!w.isRainbowKitConnector}
+              borderRadius="6"
+              height="54"
+              src={w.iconUrl}
+              width="54"
+              fullWidth
+            />
+          ),
+          wallet: w,
+        };
+      });
+    walletOpts = walletOpts.filter(({ key }) => key !== 'TomoWallet');
+    setWalletOptions(walletOpts);
+  }, []);
+
+  const compactModeEnabled = true;
   switch (walletStep) {
     case WalletStep.None:
       walletContent = (
@@ -260,7 +297,7 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
       walletContent = selectedWallet && (
         <ConnectDetail
           changeWalletStep={changeWalletStep}
-          compactModeEnabled={compactModeEnabled}
+          compactModeEnabled={true}
           connectionError={connectionError}
           onClose={onClose}
           qrCodeUri={qrCodeUri}
@@ -364,231 +401,147 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
     default:
       break;
   }
+
+  // todo: need to be configurable
+  const socialOptions = [
+    {
+      key: 'google',
+      icon: <IconImg src={googleIcon} alt="google" />,
+    },
+    {
+      key: 'x',
+      icon: <IconImg src={xIcon} alt="x" />,
+    },
+    {
+      key: 'kakao',
+      icon: <IconImg src={kakaoIcon} alt="kakao" />,
+    },
+    {
+      key: 'telegram',
+      icon: <IconImg src={tgIcon} alt="telegram" />,
+    },
+  ];
+
+  const themeRootProps = useThemeRootProps();
+
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      style={{ maxHeight: compactModeEnabled ? 468 : 504 }}
-    >
+    <ConnectPopup opened={opened}>
       {(compactModeEnabled ? walletStep === WalletStep.None : true) && (
+        <>
+          <ConnectHeader onClose={onClose} title="Log in or sign up" close />
+          <ConnectMain
+            socialOptions={socialOptions}
+            walletOptions={walletOptions}
+            onClickInputArrow={() => 'emailContinue'}
+            onClickMainButton={() => 'telegramLogin'}
+            onClickSocialItem={async (s) => {
+              const provider =
+                (await tomoWallet?.getProvider()) as EthereumProvider;
+              try {
+                const loginSuccess = await provider.core.login(s.key as any);
+                if (loginSuccess) {
+                  // const res = await provider.core.getUserSocialInfo();
+                  tomoWallet?.connect();
+                }
+              } catch (e) {
+                console.error(e);
+              }
+            }}
+            onClickWalletItem={(w: any) => selectWallet(w.wallet)}
+          />
+        </>
+      )}
+      <Box {...themeRootProps}>
         <Box
-          className={compactModeEnabled ? sidebarCompactMode : sidebar}
           display="flex"
-          flexDirection="column"
-          marginTop="16"
+          flexDirection="row"
+          style={{ maxHeight: compactModeEnabled ? 468 : 504 }}
         >
-          <Box display="flex" justifyContent="space-between">
-            {compactModeEnabled && Disclaimer && (
-              <Box marginLeft="16" width="28">
-                <InfoButton
-                  onClick={() => changeWalletStep(WalletStep.LearnCompact)}
-                />
-              </Box>
-            )}
-            {compactModeEnabled && !Disclaimer && (
-              <Box marginLeft="16" width="28" />
-            )}
-            <Box
-              marginLeft={compactModeEnabled ? '0' : '6'}
-              paddingBottom="8"
-              paddingTop="2"
-              paddingX="18"
-            >
-              <Text
-                as="h1"
-                color="modalText"
-                id={titleId}
-                size="18"
-                weight="heavy"
-                testId={'connect-header-label'}
-              >
-                ??? {i18n.t('connect.title')}
-              </Text>
-            </Box>
-            {compactModeEnabled && (
-              <Box marginRight="16">
-                <CloseButton onClose={onClose} />
-              </Box>
-            )}
-          </Box>
-          <Box className={ScrollClassName} paddingBottom="18">
-            {Object.entries(groupedWallets).map(
-              ([groupName, wallets], index) =>
-                wallets.length > 0 && (
-                  <Fragment key={index}>
-                    {groupName ? (
-                      <Box marginBottom="8" marginTop="16" marginX="6">
-                        <Text
-                          color={
-                            groupName === 'Installed'
-                              ? 'accentColor'
-                              : 'modalTextSecondary'
-                          }
-                          size="14"
-                          weight="bold"
-                        >
-                          {supportedI18nGroupNames.includes(groupName)
-                            ? i18n.t(
-                                `connector_group.${groupName.toLowerCase()}`,
-                              )
-                            : groupName}
-                        </Text>
-                      </Box>
-                    ) : null}
-                    <Box display="flex" flexDirection="column" gap="4">
-                      {wallets.map((wallet) => {
-                        return (
-                          <ModalSelection
-                            currentlySelected={wallet.id === selectedOptionId}
-                            iconBackground={wallet.iconBackground}
-                            iconUrl={wallet.iconUrl}
-                            key={wallet.id}
-                            name={wallet.name}
-                            onClick={() => selectWallet(wallet)}
-                            ready={wallet.ready}
-                            recent={wallet.recent}
-                            testId={`wallet-option-${wallet.id}`}
-                            isRainbowKitConnector={wallet.isRainbowKitConnector}
-                          />
-                        );
-                      })}
-                    </Box>
-                  </Fragment>
-                ),
-            )}
-          </Box>
-          {compactModeEnabled && (
+          {(compactModeEnabled ? walletStep !== WalletStep.None : true) && (
             <>
-              <Box background="generalBorder" height="1" marginTop="-1" />
-              {Disclaimer ? (
-                <Box paddingX="24" paddingY="16" textAlign="center">
-                  <Disclaimer Link={DisclaimerLink} Text={DisclaimerText} />
-                </Box>
-              ) : (
+              {!compactModeEnabled && (
+                <Box background="generalBorder" minWidth="1" width="1" />
+              )}
+              <Box
+                display="flex"
+                flexDirection="column"
+                margin="16"
+                style={{ flexGrow: 1 }}
+              >
                 <Box
                   alignItems="center"
                   display="flex"
                   justifyContent="space-between"
-                  paddingX="24"
-                  paddingY="16"
+                  marginBottom="12"
                 >
-                  <Box paddingY="4">
-                    <Text color="modalTextSecondary" size="14" weight="medium">
-                      {i18n.t('connect.new_to_ethereum.description')}
-                    </Text>
+                  <Box width="28">
+                    {headerBackButtonLink && (
+                      <Box
+                        as="button"
+                        className={touchableStyles({
+                          active: 'shrinkSm',
+                          hover: 'growLg',
+                        })}
+                        color="accentColor"
+                        onClick={() => {
+                          headerBackButtonLink &&
+                            changeWalletStep(headerBackButtonLink, true);
+                          headerBackButtonCallback?.();
+                        }}
+                        paddingX="8"
+                        paddingY="4"
+                        style={{
+                          boxSizing: 'content-box',
+                          height: 17,
+                          willChange: 'transform',
+                        }}
+                        transition="default"
+                        type="button"
+                      >
+                        <BackIcon />
+                      </Box>
+                    )}
                   </Box>
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    style={{ flexGrow: 1 }}
+                  >
+                    {headerLabel && (
+                      <Text
+                        color="modalText"
+                        size="18"
+                        textAlign="center"
+                        weight="heavy"
+                      >
+                        {headerLabel}
+                      </Text>
+                    )}
+                  </Box>
+                  <CloseButton onClose={onClose} />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  style={{ minHeight: compactModeEnabled ? 396 : 432 }}
+                >
                   <Box
                     alignItems="center"
                     display="flex"
-                    flexDirection="row"
-                    gap="4"
+                    flexDirection="column"
+                    gap="6"
+                    height="full"
                     justifyContent="center"
+                    marginX="8"
                   >
-                    <Box
-                      className={touchableStyles({
-                        active: 'shrink',
-                        hover: 'grow',
-                      })}
-                      cursor="pointer"
-                      onClick={() => changeWalletStep(WalletStep.LearnCompact)}
-                      paddingY="4"
-                      style={{ willChange: 'transform' }}
-                      transition="default"
-                    >
-                      <Text color="accentColor" size="14" weight="bold">
-                        {i18n.t('connect.new_to_ethereum.learn_more.label')}
-                      </Text>
-                    </Box>
+                    {walletContent}
                   </Box>
                 </Box>
-              )}
+              </Box>
             </>
           )}
         </Box>
-      )}
-      {(compactModeEnabled ? walletStep !== WalletStep.None : true) && (
-        <>
-          {!compactModeEnabled && (
-            <Box background="generalBorder" minWidth="1" width="1" />
-          )}
-          <Box
-            display="flex"
-            flexDirection="column"
-            margin="16"
-            style={{ flexGrow: 1 }}
-          >
-            <Box
-              alignItems="center"
-              display="flex"
-              justifyContent="space-between"
-              marginBottom="12"
-            >
-              <Box width="28">
-                {headerBackButtonLink && (
-                  <Box
-                    as="button"
-                    className={touchableStyles({
-                      active: 'shrinkSm',
-                      hover: 'growLg',
-                    })}
-                    color="accentColor"
-                    onClick={() => {
-                      headerBackButtonLink &&
-                        changeWalletStep(headerBackButtonLink, true);
-                      headerBackButtonCallback?.();
-                    }}
-                    paddingX="8"
-                    paddingY="4"
-                    style={{
-                      boxSizing: 'content-box',
-                      height: 17,
-                      willChange: 'transform',
-                    }}
-                    transition="default"
-                    type="button"
-                  >
-                    <BackIcon />
-                  </Box>
-                )}
-              </Box>
-              <Box
-                display="flex"
-                justifyContent="center"
-                style={{ flexGrow: 1 }}
-              >
-                {headerLabel && (
-                  <Text
-                    color="modalText"
-                    size="18"
-                    textAlign="center"
-                    weight="heavy"
-                  >
-                    {headerLabel}
-                  </Text>
-                )}
-              </Box>
-              <CloseButton onClose={onClose} />
-            </Box>
-            <Box
-              display="flex"
-              flexDirection="column"
-              style={{ minHeight: compactModeEnabled ? 396 : 432 }}
-            >
-              <Box
-                alignItems="center"
-                display="flex"
-                flexDirection="column"
-                gap="6"
-                height="full"
-                justifyContent="center"
-                marginX="8"
-              >
-                {walletContent}
-              </Box>
-            </Box>
-          </Box>
-        </>
-      )}
-    </Box>
+      </Box>
+    </ConnectPopup>
   );
 }

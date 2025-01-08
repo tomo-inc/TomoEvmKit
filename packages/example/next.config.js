@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  webpack: (config) => {
+  transpilePackages: ['@tomo-wallet/uikit'],
+  webpack: (
+    /** @type {import('webpack').Configuration} */
+    config,
+  ) => {
     config.externals.push('pino-pretty', 'lokijs', 'encoding');
     return config;
   },

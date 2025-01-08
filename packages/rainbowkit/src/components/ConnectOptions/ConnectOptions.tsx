@@ -7,6 +7,7 @@ import { MobileStatus } from './MobileStatus';
 
 export default function ConnectOptions({ onClose }: { onClose: () => void }) {
   const { connector } = useContext(WalletButtonContext);
+  console.log('i m here');
 
   return isMobile() ? (
     connector ? (

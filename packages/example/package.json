@@ -5,9 +5,9 @@
   "private": true,
   "main": "index.js",
   "dependencies": {
+    "@rainbow-me/rainbow-button": "workspace:*",
     "@rainbow-me/rainbowkit": "workspace:*",
     "@rainbow-me/rainbowkit-siwe-next-auth": "workspace:*",
-    "@rainbow-me/rainbow-button": "workspace:*",
     "@tanstack/react-query": "^5.55.3",
     "next": "^14.2.10",
     "next-auth": "4.24.5",

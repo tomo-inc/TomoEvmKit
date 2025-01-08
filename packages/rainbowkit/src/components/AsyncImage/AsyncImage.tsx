@@ -17,6 +17,7 @@ interface AsyncImageProps {
   borderColor?: BoxProps['borderColor'] | CustomBorderColor;
   boxShadow?: BoxProps['boxShadow'];
   testId?: string;
+  fullWidth?: boolean;
 }
 
 export function AsyncImage({
@@ -30,6 +31,7 @@ export function AsyncImage({
   src: srcProp,
   width,
   testId,
+  fullWidth,
 }: AsyncImageProps) {
   const ios = isIOS();
   const src = useAsyncImage(srcProp);
@@ -51,6 +53,7 @@ export function AsyncImage({
         background,
         height: typeof height === 'number' ? height : undefined,
         width: typeof width === 'number' ? width : undefined,
+        ...(fullWidth ? { width: '100%' } : {}),
       }}
       width={typeof width === 'string' ? width : undefined}
       testId={testId}
@@ -59,11 +62,11 @@ export function AsyncImage({
         {...(isRemoteImage
           ? // biome-ignore format: design system keys
             {
-              "aria-hidden": true,
-              as: "img",
-              onLoad: setRemoteImageLoaded,
-              src,
-            }
+            "aria-hidden": true,
+            as: "img",
+            onLoad: setRemoteImageLoaded,
+            src,
+          }
           : { 'aria-hidden': true, as: 'img', src })}
         height="full"
         position="absolute"
@@ -77,6 +80,7 @@ export function AsyncImage({
                 opacity: isRemoteImageLoaded ? 1 : 0,
               }
             : {}),
+          ...(fullWidth ? { width: '100%' } : {}),
         }}
         width="full"
       />
