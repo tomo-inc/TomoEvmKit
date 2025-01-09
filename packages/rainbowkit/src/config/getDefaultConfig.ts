@@ -40,7 +40,7 @@ interface GetDefaultConfigParameters<
   appIcon?: string;
   wallets?: WalletList;
   projectId: string;
-  clientId: string;
+  clientId?: string;
 }
 
 const createDefaultTransports = <
@@ -65,7 +65,6 @@ function makeTomoWalletFn(clientId: string): () => Wallet {
     return {
       id: 'TomoWallet',
       name: 'Tomo Wallet',
-      // iconUrl: sdk.getAppInfo().logo,
       iconUrl: logoUrl,
       installed: true,
       iconBackground: '#000000',
@@ -74,7 +73,7 @@ function makeTomoWalletFn(clientId: string): () => Wallet {
           ...injected({
             // shimDisconnect: false
           })(config),
-          ...walletDetails,
+          ...walletDetails.rkDetails,
           getProvider: async () => {
             if (provider) return provider;
             //@ts-ignore
@@ -115,7 +114,8 @@ export const getDefaultConfig = <
     appIcon,
   });
 
-  const tomoWallet = makeTomoWalletFn(clientId);
+  if(!clientId) console.error('please enter your tomo client id');
+  const tomoWallet = makeTomoWalletFn(clientId || '');
 
   const connectors = connectorsForWallets(
     wallets

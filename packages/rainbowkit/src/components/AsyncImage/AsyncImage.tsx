@@ -9,8 +9,8 @@ type CustomBorderColor = {
 interface AsyncImageProps {
   alt?: string;
   src: string | AsyncImageSrc | undefined;
-  width: BoxProps['width'] | number;
-  height: BoxProps['height'] | number;
+  width?: BoxProps['width'] | number;
+  height?: BoxProps['height'] | number;
   background?: string;
   borderRadius?: BoxProps['borderRadius'];
   useAsImage?: boolean;
@@ -18,6 +18,7 @@ interface AsyncImageProps {
   boxShadow?: BoxProps['boxShadow'];
   testId?: string;
   fullWidth?: boolean;
+  fullHeight?: boolean;
 }
 
 export function AsyncImage({
@@ -29,9 +30,10 @@ export function AsyncImage({
   boxShadow,
   height,
   src: srcProp,
-  width,
-  testId,
+  width = '28',
+  testId = '28',
   fullWidth,
+  fullHeight,
 }: AsyncImageProps) {
   const ios = isIOS();
   const src = useAsyncImage(srcProp);
@@ -54,6 +56,7 @@ export function AsyncImage({
         height: typeof height === 'number' ? height : undefined,
         width: typeof width === 'number' ? width : undefined,
         ...(fullWidth ? { width: '100%' } : {}),
+        ...(fullHeight ? { height: '100%' } : {}),
       }}
       width={typeof width === 'string' ? width : undefined}
       testId={testId}
