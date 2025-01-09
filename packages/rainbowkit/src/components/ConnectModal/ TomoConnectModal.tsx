@@ -1,8 +1,9 @@
-import type React from 'react';
+// biome-ignore lint/style/useImportType: <explanation>
+import React from 'react';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  ConnectPopup,
-  ConnectHeader,
+  Popup,
+  PopupHeader,
   ConnectMain,
   type WalletItemProps,
 } from '@tomo-wallet/uikit';
@@ -38,7 +39,6 @@ import xIcon from '../../../assets/icon_x.svg';
 import kakaoIcon from '../../../assets/icon_kakao.svg';
 import tgIcon from '../../../assets/icon_telegram.svg';
 import type { EthereumProvider } from '@tomo-inc/social-wallet-sdk';
-import * as styles from '../Dialog/Dialog.css';
 import { useThemeRootProps } from '../RainbowKitProvider/RainbowKitProvider';
 
 interface Props {
@@ -425,10 +425,10 @@ export function TomoConnectModal({ opened, onClose }: Props) {
   const themeRootProps = useThemeRootProps();
 
   return (
-    <ConnectPopup opened={opened}>
+    <Popup opened={opened}>
       {(compactModeEnabled ? walletStep === WalletStep.None : true) && (
         <>
-          <ConnectHeader onClose={onClose} title="Log in or sign up" close />
+          <PopupHeader onClose={onClose} title="Log in or sign up" close />
           <ConnectMain
             socialOptions={socialOptions}
             walletOptions={walletOptions}
@@ -542,6 +542,6 @@ export function TomoConnectModal({ opened, onClose }: Props) {
           )}
         </Box>
       </Box>
-    </ConnectPopup>
+    </Popup>
   );
 }
