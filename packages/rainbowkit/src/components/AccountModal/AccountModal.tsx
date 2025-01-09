@@ -6,6 +6,7 @@ import {
   // useConnections,
   // useConnectors,
   useDisconnect,
+  useSwitchChain,
   // useSwitchChain,
 } from 'wagmi';
 // import { useProfile } from '../../hooks/useProfile';
@@ -26,7 +27,7 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
   const { address, connector } = useAccount();
   const chainId = useChainId();
   const rainbowKitChains = useRainbowKitChains();
-  // const { switchChainAsync } = useSwitchChain();
+  const { switchChainAsync } = useSwitchChain();
   // const connections = useConnections();
   // const { balance, ensAvatar, ensName } = useProfile({
   //   address,
@@ -72,8 +73,11 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
           <AsyncImage src={rc?.iconUrl || ''} fullWidth fullHeight />
         </div>
       ),
+      onClick: async () => {
+        await switchChainAsync({ chainId: rc.id });
+      },
     }));
-  }, [rainbowKitChains]);
+  }, [rainbowKitChains, switchChainAsync]);
 
   if (!address) {
     return null;

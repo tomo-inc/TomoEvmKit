@@ -114,7 +114,8 @@ export const getDefaultConfig = <
     appIcon,
   });
 
-  if(!clientId) console.error('please enter your tomo client id');
+  if (!clientId) console.error('please enter your tomo client id');
+
   const tomoWallet = makeTomoWalletFn(clientId || '');
 
   const connectors = connectorsForWallets(
