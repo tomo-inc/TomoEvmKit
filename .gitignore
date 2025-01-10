@@ -109,3 +109,6 @@ dist
 
 # Others
 .DS_Store
+
+.vercel/
+out/

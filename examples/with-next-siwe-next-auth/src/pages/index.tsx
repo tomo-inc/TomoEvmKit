@@ -3,13 +3,13 @@ import type { GetServerSideProps, NextPage } from 'next';
 import { getServerSession } from 'next-auth';
 import { getAuthOptions } from './api/auth/[...nextauth]';
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  return {
-    props: {
-      session: await getServerSession(req, res, getAuthOptions(req)),
-    },
-  };
-};
+// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+//   return {
+//     props: {
+//       session: await getServerSession(req, res, getAuthOptions(req)),
+//     },
+//   };
+// };
 
 const Home: NextPage = () => {
   return (

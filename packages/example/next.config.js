@@ -6,31 +6,38 @@ module.exports = {
     /** @type {import('webpack').Configuration} */
     config,
   ) => {
-    config.externals.push('pino-pretty', 'lokijs', 'encoding');
+    // config.externals.push('pino-pretty', 'lokijs', 'encoding');
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "crypto": "crypto-browserify",
+      "https": "https-browserify",
+      "http": "http-browserify"
+    };
     return config;
   },
-  i18n: {
-    defaultLocale: 'en-US',
-    locales: [
-      'ar-AR',
-      'de-DE',
-      'en-US',
-      'es-419',
-      'fr-FR',
-      'hi-IN',
-      'id-ID',
-      'ja-JP',
-      'ko-KR',
-      'ms-MY',
-      'pt-BR',
-      'ru-RU',
-      'th-TH',
-      'tr-TR',
-      'uk-UA',
-      'vi-VN',
-      'zh-CN',
-      'zh-HK',
-      'zh-TW',
-    ],
-  },
+  output: 'export',
+  // i18n: {
+  //   defaultLocale: 'en-US',
+  //   locales: [
+  //     'ar-AR',
+  //     'de-DE',
+  //     'en-US',
+  //     'es-419',
+  //     'fr-FR',
+  //     'hi-IN',
+  //     'id-ID',
+  //     'ja-JP',
+  //     'ko-KR',
+  //     'ms-MY',
+  //     'pt-BR',
+  //     'ru-RU',
+  //     'th-TH',
+  //     'tr-TR',
+  //     'uk-UA',
+  //     'vi-VN',
+  //     'zh-CN',
+  //     'zh-HK',
+  //     'zh-TW',
+  //   ],
+  // },
 };

@@ -21,13 +21,13 @@ import {
 import type { AppContextProps } from '../lib/AppContextProps';
 import { getAuthOptions } from './api/auth/[...nextauth]';
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  return {
-    props: {
-      session: await getServerSession(req, res, getAuthOptions(req)),
-    },
-  };
-};
+// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+//   return {
+//     props: {
+//       session: await getServerSession(req, res, getAuthOptions(req)),
+//     },
+//   };
+// };
 
 type ConnectButtonProps = ComponentProps<typeof ConnectButton>;
 type ExtractString<Value> = Value extends string ? Value : never;
