@@ -58,8 +58,6 @@
     "@vanilla-extract/private": "1.0.6",
     "autoprefixer": "^10.4.16",
     "dotenv": "^16.4.5",
-    "esbuild-plugin-alias": "^0.2.1",
-    "esbuild-plugin-alias-path": "^2.0.2",
     "jsdom": "^25.0.0",
     "nock": "^13.4.0",
     "postcss": "^8.4.45",
@@ -73,7 +71,7 @@
     "clsx": "2.1.1",
     "qrcode": "1.5.4",
     "react-remove-scroll": "2.6.0",
-    "tm-uikit": "0.0.3",
+    "tm-uikit": "0.0.5",
     "tm-web-sdk": "^1.0.23",
     "ua-parser-js": "^1.0.37"
   },
