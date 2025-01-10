@@ -16,7 +16,7 @@ import {
   DesktopScrollClassName,
   MobileScrollClassName,
 } from './ChainModal.css';
-import { NetworkPopup } from '@tomo-wallet/uikit';
+import { NetworkPopup } from 'tm-uikit';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
 
 export interface ChainModalProps {

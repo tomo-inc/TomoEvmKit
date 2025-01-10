@@ -58,6 +58,8 @@
     "@vanilla-extract/private": "1.0.6",
     "autoprefixer": "^10.4.16",
     "dotenv": "^16.4.5",
+    "esbuild-plugin-alias": "^0.2.1",
+    "esbuild-plugin-alias-path": "^2.0.2",
     "jsdom": "^25.0.0",
     "nock": "^13.4.0",
     "postcss": "^8.4.45",
@@ -65,13 +67,14 @@
     "vitest": "2.0.5"
   },
   "dependencies": {
-    "@tomo-inc/social-wallet-sdk": "^1.0.23",
     "@vanilla-extract/css": "1.15.5",
     "@vanilla-extract/dynamic": "2.1.2",
     "@vanilla-extract/sprinkles": "1.6.3",
     "clsx": "2.1.1",
     "qrcode": "1.5.4",
     "react-remove-scroll": "2.6.0",
+    "tm-uikit": "0.0.3",
+    "tm-web-sdk": "^1.0.23",
     "ua-parser-js": "^1.0.37"
   },
   "repository": {

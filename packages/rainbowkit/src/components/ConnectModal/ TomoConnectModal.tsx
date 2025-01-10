@@ -6,7 +6,7 @@ import {
   PopupHeader,
   ConnectMain,
   type WalletItemProps,
-} from '@tomo-wallet/uikit';
+} from 'tm-uikit';
 import { WalletButtonContext } from '../RainbowKitProvider/WalletButtonContext';
 import {
   useWalletConnectors,
@@ -38,7 +38,7 @@ import googleIcon from '../../../assets/icon_google.svg';
 import xIcon from '../../../assets/icon_x.svg';
 import kakaoIcon from '../../../assets/icon_kakao.svg';
 import tgIcon from '../../../assets/icon_telegram.svg';
-import type { EthereumProvider } from '@tomo-inc/social-wallet-sdk';
+import type { EthereumProvider } from 'tm-web-sdk';
 import { useThemeRootProps } from '../RainbowKitProvider/RainbowKitProvider';
 
 interface Props {
@@ -434,7 +434,7 @@ export function TomoConnectModal({ opened, onClose }: Props) {
             walletOptions={walletOptions}
             onClickInputArrow={() => 'emailContinue'}
             onClickMainButton={() => 'telegramLogin'}
-            onClickSocialItem={async (s) => {
+            onClickSocialItem={async (s: { key: any }) => {
               const provider =
                 (await tomoWallet?.getProvider()) as EthereumProvider;
               try {
