@@ -176,7 +176,7 @@ function RainbowKitApp({
 
   const appContextProps: AppContextProps = { authEnabled };
 
-  const locales = router.locales as Locale[];
+  // const locales = router.locales as Locale[];
 
   // Note: Non-RainbowKit providers are wrapped around this component
   // at the bottom of the file. This is so that our example app
@@ -365,25 +365,6 @@ function RainbowKitApp({
                         {[undefined, ...config.chains].map((chain) => (
                           <option key={chain?.id ?? ''} value={chain?.id ?? ''}>
                             {chain?.name ?? 'Default'}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label style={{ userSelect: 'none' }}>locale</label>
-                    </td>
-                    <td>
-                      <select
-                        onChange={(e) => {
-                          setLocale(e.target.value as Locale);
-                        }}
-                        value={locale}
-                      >
-                        {locales.map((locale) => (
-                          <option key={locale} value={locale}>
-                            {locale}
                           </option>
                         ))}
                       </select>
