@@ -95,7 +95,7 @@ import {
 } from 'wagmi/chains';
 
 const projectId =
-  process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID ?? 'YOUR_PROJECT_ID';
+  process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID ?? '212ec4050c4a6b0ab930de39e5e31839';
 
 const avalanche = {
   id: 43_114,
@@ -156,7 +156,8 @@ export const config = getDefaultConfig({
   appName: 'RainbowKit Demo',
   projectId,
   clientId:
-    'yiPWTD4fztgEVS78HDUHoSFb4geppl2XTrhHZQUdGnh981bE13m2jrEwBhMlKNUNRWSoCYwD4ruOhWStuunYxMF0',
+    // 'yiPWTD4fztgEVS78HDUHoSFb4geppl2XTrhHZQUdGnh981bE13m2jrEwBhMlKNUNRWSoCYwD4ruOhWStuunYxMF0',
+    'bCMfq7lAMPobDhf6kWAHAPtO5Ct6YuA77W9SzhjUixFwOOi0f92vsdJpkAhn0W4tg8TVSeTNUSvBOC3MXYRuIH0Z',
   chains: [
     mainnet,
     polygon,

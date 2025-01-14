@@ -71,8 +71,8 @@
     "clsx": "2.1.1",
     "qrcode": "1.5.4",
     "react-remove-scroll": "2.6.0",
-    "tm-uikit": "0.0.5",
-    "tm-web-sdk": "^1.0.23",
+    "@tomo-wallet/uikit": "0.0.1",
+    "@tomo-inc/social-wallet-sdk": "alpha",
     "ua-parser-js": "^1.0.37"
   },
   "repository": {

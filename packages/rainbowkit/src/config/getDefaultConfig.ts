@@ -77,11 +77,13 @@ function makeTomoWalletFn(clientId: string): () => Wallet {
           getProvider: async () => {
             if (provider) return provider;
             //@ts-ignore
-            const socialSdk = await import('tm-web-sdk');
+            const socialSdk = await import('@tomo-inc/social-wallet-sdk');
             const { TomoSDK, EthereumProvider } = socialSdk;
             const tomoSDK = new TomoSDK({
               clientId: clientId,
               ethereumProvider: new EthereumProvider(),
+              relayBase: 'http://localhost:3001',
+              connect: 'https://app.unyx.tech/api/'
             });
             const ethereum = tomoSDK.ethereumProvider;
             return ethereum;

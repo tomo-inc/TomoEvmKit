@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  transpilePackages: ['tm-uikit'],
+  transpilePackages: ['@tomo-wallet/uikit'],
   webpack: (
     /** @type {import('webpack').Configuration} */
     config,
@@ -9,9 +9,9 @@ module.exports = {
     // config.externals.push('pino-pretty', 'lokijs', 'encoding');
     config.resolve.alias = {
       ...config.resolve.alias,
-      "crypto": "crypto-browserify",
-      "https": "https-browserify",
-      "http": "http-browserify"
+      crypto: "crypto-browserify",
+      https: "https-browserify",
+      http: "http-browserify"
     };
     return config;
   },

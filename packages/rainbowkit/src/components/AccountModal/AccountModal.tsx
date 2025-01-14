@@ -13,7 +13,7 @@ import {
 // import { Dialog } from '../Dialog/Dialog';
 // import { DialogContent } from '../Dialog/DialogContent';
 // import { ProfileDetails } from '../ProfileDetails/ProfileDetails';
-import { ConnectedModal, Theme } from 'tm-uikit';
+import { ConnectedModal, Theme } from '@tomo-wallet/uikit';
 import { useRainbowKitChains } from '../RainbowKitProvider/RainbowKitChainContext';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
 // import { useThemeRootProps } from '../RainbowKitProvider/RainbowKitProvider';

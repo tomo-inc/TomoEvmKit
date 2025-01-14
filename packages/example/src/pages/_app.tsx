@@ -152,7 +152,7 @@ function RainbowKitApp({
   const routerLocale = router.locale as Locale;
 
   // Set `locale` as default from next.js and let dropdown set new `locale`
-  const [locale, setLocale] = useState<Locale>(routerLocale);
+  const [locale, _setLocale] = useState<Locale>(routerLocale);
 
   const currentTheme = (
     themes.find(({ name }) => name === selectedThemeName) ?? themes[0]
@@ -572,13 +572,11 @@ export default function App(
         <link href="/favicon.ico" rel="icon" />
       </Head>
 
-      <SessionProvider refetchInterval={0} session={appProps.pageProps.session}>
-        <WagmiProvider config={config}>
-          <QueryClientProvider client={queryClient}>
-            <RainbowKitApp {...appProps} />
-          </QueryClientProvider>
-        </WagmiProvider>
-      </SessionProvider>
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <RainbowKitApp {...appProps} />
+        </QueryClientProvider>
+      </WagmiProvider>
     </>
   );
 }

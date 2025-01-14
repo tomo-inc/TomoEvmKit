@@ -6,7 +6,7 @@ import {
   PopupHeader,
   ConnectMain,
   type WalletItemProps,
-} from 'tm-uikit';
+} from '@tomo-wallet/uikit';
 import { WalletButtonContext } from '../RainbowKitProvider/WalletButtonContext';
 import {
   useWalletConnectors,
@@ -38,8 +38,9 @@ import googleIcon from '../../../assets/icon_google.svg';
 import xIcon from '../../../assets/icon_x.svg';
 import kakaoIcon from '../../../assets/icon_kakao.svg';
 import tgIcon from '../../../assets/icon_telegram.svg';
-import type { EthereumProvider } from 'tm-web-sdk';
+import type { EthereumProvider } from '@tomo-inc/social-wallet-sdk';
 import { useThemeRootProps } from '../RainbowKitProvider/RainbowKitProvider';
+import type { LoginType, UserSocialInfo } from '@tomo-inc/social-wallet-sdk/dist/types/types';
 
 interface Props {
   opened: boolean;
@@ -233,7 +234,10 @@ export function TomoConnectModal({ opened, onClose }: Props) {
 
   const [walletOptions, setWalletOptions] = useState<WalletItemProps[]>([]);
 
-  const tomoWallet = wallets.find((w) => w.id === 'TomoWallet');
+  const tomoWallet = useMemo(
+    () => wallets.find((w) => w.id === 'TomoWallet'),
+    [wallets],
+  );
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: on mount logic
   useEffect(() => {
@@ -244,18 +248,25 @@ export function TomoConnectModal({ opened, onClose }: Props) {
           name: w.name,
           desc: w.name,
           icon: (
-            <AsyncImage
-              background={'transparent'}
-              // We want to use pure <img /> element
-              // to avoid bugs with eip6963 icons as sometimes
-              // background: url(...) does not work
-              useAsImage={!w.isRainbowKitConnector}
-              borderRadius="6"
-              height="54"
-              src={w.iconUrl}
-              width="54"
-              fullWidth
-            />
+            <div
+              style={{
+                borderRadius: 10,
+                width: '100%',
+                height: '100%',
+                overflow: 'hidden',
+              }}
+            >
+              <AsyncImage
+                background={'transparent'}
+                useAsImage={!w.isRainbowKitConnector}
+                borderRadius="6"
+                height="54"
+                src={w.iconUrl}
+                width="54"
+                fullWidth
+                fullHeight
+              />
+            </div>
           ),
           wallet: w,
         };
@@ -409,7 +420,7 @@ export function TomoConnectModal({ opened, onClose }: Props) {
       icon: <IconImg src={googleIcon} alt="google" />,
     },
     {
-      key: 'x',
+      key: 'twitter',
       icon: <IconImg src={xIcon} alt="x" />,
     },
     {
@@ -424,6 +435,108 @@ export function TomoConnectModal({ opened, onClose }: Props) {
 
   const themeRootProps = useThemeRootProps();
 
+  const getTomoSdk = async () => {
+    const provider = (await tomoWallet?.getProvider()) as EthereumProvider;
+    return provider.core;
+  };
+
+  const loadUserSocialInfo = async () => {
+    const tomoSdk = await getTomoSdk();
+    const userSocialInfo = await tomoSdk.getUserSocialInfo();
+    return userSocialInfo;
+  };
+
+  const secureAction = async (userSocialInfo: UserSocialInfo) => {
+    const tomoSDK = await getTomoSdk();
+    if (!userSocialInfo?.tradePasswordBound) {
+      let res: string | boolean;
+      if (!userSocialInfo?.recoveryEmail) {
+        res = await tomoSDK?.setPayPinAndEmail();
+      } else {
+        res = await tomoSDK?.setPayPin();
+      }
+      if (res) {
+        await loadUserSocialInfo();
+        return res;
+      }
+    } else if (!userSocialInfo?.recoveryEmail) {
+      const res = await tomoSDK?.addRecoveryEmail();
+      if (res) {
+        await loadUserSocialInfo();
+        return res;
+      }
+    }
+  };
+
+  const approveLogin = async () => {
+    const tomoSDK = await getTomoSdk();
+    const requestAccountsRes = await tomoSDK?.requestAccounts();
+    const isApprove = requestAccountsRes === 'approve';
+    if (isApprove) {
+      // await walletConnect.connect(type)
+      tomoWallet?.connect();
+    } else {
+      await tomoSDK.logout();
+    }
+  };
+
+  const login = async (loginType: LoginType) => {
+    // todo
+    // loadingFn(async () => {
+    const tomoSdk = await getTomoSdk();
+    const ret = await tomoSdk.login(loginType);
+    if (ret) {
+      try {
+        const res = await loadUserSocialInfo();
+        console.log('loadUserSocialInfo', res);
+        if (!res.recoveryEmail || !res.tradePasswordBound) {
+          const isSecure = await secureAction(res);
+          if (isSecure) return await approveLogin();
+        }
+        await approveLogin();
+      } catch (e: any) {
+        // toast.error(e?.message || 'Failed');
+        console.log('login error', e);
+      }
+    }
+    // })
+  };
+
+  /** social login */
+  const emailContinue = async (email: string) => {
+    // loadingFn(async () => {
+    const tomoSDK = await getTomoSdk();
+    let result: boolean;
+    try {
+      result = await tomoSDK?.sendCode(email);
+    } catch (e) {
+      console.log('login error', e);
+      return;
+    }
+    if (result) {
+      const verifyEmailCodeResult = await tomoSDK?.verifyLoginEmail(email);
+      console.log('verifyEmailCodeResult', verifyEmailCodeResult);
+      if (verifyEmailCodeResult) {
+        tomoSDK?.handleLoginByEmailSuccess(verifyEmailCodeResult as string);
+      }
+      if (verifyEmailCodeResult) {
+        try {
+          const res = await loadUserSocialInfo();
+          console.log('loadUserSocialInfo', res);
+          if (!res.recoveryEmail || !res.tradePasswordBound) {
+            const isSecure = await secureAction(res);
+            if (isSecure) return await approveLogin();
+          }
+          await approveLogin();
+        } catch (e: any) {
+          // toast.error(e?.message || 'Failed')
+          console.log('login error', e);
+        }
+      }
+    }
+    // })
+  };
+
   return (
     <Popup opened={opened}>
       {(compactModeEnabled ? walletStep === WalletStep.None : true) && (
@@ -432,20 +545,12 @@ export function TomoConnectModal({ opened, onClose }: Props) {
           <ConnectMain
             socialOptions={socialOptions}
             walletOptions={walletOptions}
-            onClickInputArrow={() => 'emailContinue'}
-            onClickMainButton={() => 'telegramLogin'}
+            onClickInputArrow={emailContinue}
+            onClickMainButton={async () => {
+              login('telegram');
+            }}
             onClickSocialItem={async (s: { key: any }) => {
-              const provider =
-                (await tomoWallet?.getProvider()) as EthereumProvider;
-              try {
-                const loginSuccess = await provider.core.login(s.key as any);
-                if (loginSuccess) {
-                  // const res = await provider.core.getUserSocialInfo();
-                  tomoWallet?.connect();
-                }
-              } catch (e) {
-                console.error(e);
-              }
+              login(s.key as any);
             }}
             onClickWalletItem={(w: any) => selectWallet(w.wallet)}
           />

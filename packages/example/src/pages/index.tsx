@@ -34,12 +34,11 @@ type ExtractString<Value> = Value extends string ? Value : never;
 type AccountStatus = ExtractString<ConnectButtonProps['accountStatus']>;
 type ChainStatus = ExtractString<ConnectButtonProps['chainStatus']>;
 
-const Example = ({ authEnabled }: AppContextProps) => {
+const Example = () => {
   const { openAccountModal, accountModalOpen } = useAccountModal();
   const { openChainModal, chainModalOpen } = useChainModal();
   const { openConnectModal, connectModalOpen } = useConnectModal();
   const { address, isConnected: isWagmiConnected } = useAccount();
-  const { status } = useSession();
 
   const defaultProps = ConnectButton.__defaultProps;
 
@@ -83,9 +82,8 @@ const Example = ({ authEnabled }: AppContextProps) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const ready = mounted && (!authEnabled || status !== 'loading');
-  const connected =
-    isWagmiConnected && (!authEnabled || status === 'authenticated');
+  const ready = mounted;
+  const connected = isWagmiConnected;
 
   return (
     <div
@@ -289,7 +287,7 @@ const Example = ({ authEnabled }: AppContextProps) => {
                 onClick={() =>
                   sendTransaction?.({
                     to: address as Address,
-                    value: parseEther('0.00001'),
+                    value: parseEther('0.0001'),
                   })
                 }
                 type="button"
