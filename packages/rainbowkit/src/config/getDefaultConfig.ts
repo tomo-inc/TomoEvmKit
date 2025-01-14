@@ -82,7 +82,7 @@ function makeTomoWalletFn(clientId: string): () => Wallet {
             const tomoSDK = new TomoSDK({
               clientId: clientId,
               ethereumProvider: new EthereumProvider(),
-              relayBase: 'http://localhost:3001',
+              relayBase: 'https://social-relay-dev.tomo.inc/',
               connect: 'https://app.unyx.tech/api/'
             });
             const ethereum = tomoSDK.ethereumProvider;
