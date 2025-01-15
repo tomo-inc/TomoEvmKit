@@ -1,4 +1,4 @@
-import '@tomo-wallet/tomo-evm-kit/styles.css';
+import '@tomo-inc/tomo-evm-kit/styles.css';
 import './global.css';
 
 import type { Session } from 'next-auth';
@@ -17,7 +17,7 @@ import {
   getDefaultConfig,
   lightTheme,
   midnightTheme,
-} from '@tomo-wallet/tomo-evm-kit';
+} from '@tomo-inc/tomo-evm-kit';
 import {
   type GetSiweMessageOptions,
   RainbowKitSiweNextAuthProvider,

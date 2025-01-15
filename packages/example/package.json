@@ -6,7 +6,7 @@
   "main": "index.js",
   "dependencies": {
     "@rainbow-me/rainbow-button": "workspace:*",
-    "@tomo-wallet/tomo-evm-kit": "workspace:*",
+    "@tomo-inc/tomo-evm-kit": "workspace:*",
     "@rainbow-me/rainbowkit-siwe-next-auth": "workspace:*",
     "@tanstack/react-query": "^5.55.3",
     "crypto-browserify": "^3.12.1",

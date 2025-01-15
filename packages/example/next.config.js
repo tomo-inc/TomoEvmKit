@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  transpilePackages: ['@tomo-wallet/tomo-evm-kit'],
+  transpilePackages: ['@tomo-inc/tomo-evm-kit'],
   webpack: (
     /** @type {import('webpack').Configuration} */
     config,

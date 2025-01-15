@@ -6,7 +6,7 @@ import {
   useAddRecentTransaction,
   useChainModal,
   useConnectModal,
-} from '@tomo-wallet/tomo-evm-kit';
+} from '@tomo-inc/tomo-evm-kit';
 import type { GetServerSideProps } from 'next';
 import { getServerSession } from 'next-auth';
 import { useSession } from 'next-auth/react';
