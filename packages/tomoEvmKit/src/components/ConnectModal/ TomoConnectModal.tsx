@@ -539,8 +539,12 @@ export function TomoConnectModal({ opened, onClose }: Props) {
         }
       }
     }
-    // })
   };
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: reset walletStep state when close popup
+  useEffect(() => {
+    if (!opened) changeWalletStep(WalletStep.None);
+  }, [opened]);
 
   return (
     <Popup opened={opened}>

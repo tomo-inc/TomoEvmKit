@@ -41,9 +41,7 @@ export function ConnectModal({ onClose, open }: ConnectModalProps) {
       //     <ConnectOptions onClose={onConnectModalCancel} />
       //   </DialogContent>
       // </Dialog>
-      // <Dialog onClose={onConnectModalCancel} open={open} titleId={titleId}>
       <TomoConnectModal opened={open} onClose={onConnectModalCancel} />
-      // </Dialog>
     );
   }
 

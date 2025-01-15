@@ -9,9 +9,9 @@ module.exports = {
     // config.externals.push('pino-pretty', 'lokijs', 'encoding');
     config.resolve.alias = {
       ...config.resolve.alias,
-      crypto: "crypto-browserify",
-      https: "https-browserify",
-      http: "http-browserify"
+      crypto: 'crypto-browserify',
+      https: 'https-browserify',
+      http: 'http-browserify',
     };
     return config;
   },
