@@ -65,7 +65,7 @@ function IconImg({
   return <img alt={alt || ''} src={src} {...props} className={className} />;
 }
 
-export function TomoConnectModal({ opened, onClose }: Props) {
+function TomoConnectModalInner({ opened, onClose }: Props) {
   // const titleId = 'rk_connect_title';
   // const [selectedOptionId, setSelectedOptionId] = useState<
   // string | undefined
@@ -541,11 +541,6 @@ export function TomoConnectModal({ opened, onClose }: Props) {
     }
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: reset walletStep state when close popup
-  useEffect(() => {
-    if (!opened) changeWalletStep(WalletStep.None);
-  }, [opened]);
-
   return (
     <Popup opened={opened}>
       {(compactModeEnabled ? walletStep === WalletStep.None : true) && (
@@ -642,4 +637,8 @@ export function TomoConnectModal({ opened, onClose }: Props) {
       </Box>
     </Popup>
   );
+}
+
+export function TomoConnectModal(props: Props) {
+  return props.opened ? <TomoConnectModalInner {...props} /> : null;
 }
