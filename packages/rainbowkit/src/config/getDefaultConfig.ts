@@ -172,6 +172,7 @@ export const getDefaultConfig = <
   return createConfig({
     connectors,
     chains,
+    multiInjectedProviderDiscovery: true,
     transports:
       transports || createDefaultTransports<chains, transports>(chains),
     ...restWagmiParameters,

@@ -249,7 +249,7 @@ function TomoConnectModalInner({ opened, onClose }: Props) {
     let walletOpts: (WalletItemProps & { wallet: WalletConnector })[] =
       wallets.map((w) => {
         let desc = '';
-        if (w.installed || w.type === 'injected') desc = 'Installed';
+        if (w.installed || w.groupName === 'Installed') desc = 'Installed';
         else {
           const platformList = [];
           if (w.downloadUrls?.browserExtension) platformList.push('Extension');
