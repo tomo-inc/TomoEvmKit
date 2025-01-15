@@ -95,7 +95,8 @@ import {
 } from 'wagmi/chains';
 
 const projectId =
-  process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID ?? '212ec4050c4a6b0ab930de39e5e31839';
+  process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID ??
+  '212ec4050c4a6b0ab930de39e5e31839';
 
 const avalanche = {
   id: 43_114,
@@ -153,11 +154,16 @@ const ink = {
 coinbaseWallet.preference = 'all';
 
 export const config = getDefaultConfig({
-  appName: 'RainbowKit Demo',
+  appName: 'TomoEvmKit Demo',
   projectId,
   clientId:
+    // todo env 
     // 'yiPWTD4fztgEVS78HDUHoSFb4geppl2XTrhHZQUdGnh981bE13m2jrEwBhMlKNUNRWSoCYwD4ruOhWStuunYxMF0',
     'bCMfq7lAMPobDhf6kWAHAPtO5Ct6YuA77W9SzhjUixFwOOi0f92vsdJpkAhn0W4tg8TVSeTNUSvBOC3MXYRuIH0Z',
+  devOption: {
+    relayBase: 'https://social-relay-dev.tomo.inc',
+    connect: 'https://app.unyx.tech/api/',
+  },
   chains: [
     mainnet,
     polygon,

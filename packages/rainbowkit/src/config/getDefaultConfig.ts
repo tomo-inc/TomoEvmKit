@@ -41,6 +41,10 @@ interface GetDefaultConfigParameters<
   wallets?: WalletList;
   projectId: string;
   clientId?: string;
+  devOption?: {
+    connect?: string;
+    relayBase?: string;
+  };
 }
 
 const createDefaultTransports = <
@@ -59,7 +63,15 @@ const createDefaultTransports = <
 };
 
 const logoUrl = 'https://d13t1x9bdoguib.cloudfront.net/static/tomo.svg';
-function makeTomoWalletFn(clientId: string): () => Wallet {
+function makeTomoWalletFn({
+  clientId = '',
+  connect,
+  relayBase,
+}: {
+  clientId: string;
+  connect?: string;
+  relayBase?: string;
+}): () => Wallet {
   return () => {
     let provider: unknown;
     return {
@@ -82,8 +94,8 @@ function makeTomoWalletFn(clientId: string): () => Wallet {
             const tomoSDK = new TomoSDK({
               clientId: clientId,
               ethereumProvider: new EthereumProvider(),
-              relayBase: 'https://social-relay-dev.tomo.inc/',
-              connect: 'https://app.unyx.tech/api/'
+              connect,
+              relayBase,
             });
             const ethereum = tomoSDK.ethereumProvider;
             return ethereum;
@@ -105,6 +117,7 @@ export const getDefaultConfig = <
   wallets,
   projectId,
   clientId,
+  devOption: { connect, relayBase } = {},
   ...wagmiParameters
 }: GetDefaultConfigParameters<chains, transports>) => {
   const { transports, chains, ...restWagmiParameters } = wagmiParameters;
@@ -118,7 +131,11 @@ export const getDefaultConfig = <
 
   if (!clientId) console.error('please enter your tomo client id');
 
-  const tomoWallet = makeTomoWalletFn(clientId || '');
+  const tomoWallet = makeTomoWalletFn({
+    clientId: clientId || '',
+    connect,
+    relayBase,
+  });
 
   const connectors = connectorsForWallets(
     wallets

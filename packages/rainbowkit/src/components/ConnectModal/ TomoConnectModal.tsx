@@ -6,6 +6,8 @@ import {
   PopupHeader,
   ConnectMain,
   type WalletItemProps,
+  HeaderBackIcon,
+  HeaderCloseIcon,
 } from '@tomo-wallet/uikit';
 import { WalletButtonContext } from '../RainbowKitProvider/WalletButtonContext';
 import {
@@ -40,7 +42,10 @@ import kakaoIcon from '../../../assets/icon_kakao.svg';
 import tgIcon from '../../../assets/icon_telegram.svg';
 import type { EthereumProvider } from '@tomo-inc/social-wallet-sdk';
 import { useThemeRootProps } from '../RainbowKitProvider/RainbowKitProvider';
-import type { LoginType, UserSocialInfo } from '@tomo-inc/social-wallet-sdk/dist/types/types';
+import type {
+  LoginType,
+  UserSocialInfo,
+} from '@tomo-inc/social-wallet-sdk/dist/types/types';
 
 interface Props {
   opened: boolean;
@@ -581,30 +586,13 @@ export function TomoConnectModal({ opened, onClose }: Props) {
                 >
                   <Box width="28">
                     {headerBackButtonLink && (
-                      <Box
-                        as="button"
-                        className={touchableStyles({
-                          active: 'shrinkSm',
-                          hover: 'growLg',
-                        })}
-                        color="accentColor"
+                      <HeaderBackIcon
                         onClick={() => {
                           headerBackButtonLink &&
                             changeWalletStep(headerBackButtonLink, true);
                           headerBackButtonCallback?.();
                         }}
-                        paddingX="8"
-                        paddingY="4"
-                        style={{
-                          boxSizing: 'content-box',
-                          height: 17,
-                          willChange: 'transform',
-                        }}
-                        transition="default"
-                        type="button"
-                      >
-                        <BackIcon />
-                      </Box>
+                      />
                     )}
                   </Box>
                   <Box
@@ -623,7 +611,8 @@ export function TomoConnectModal({ opened, onClose }: Props) {
                       </Text>
                     )}
                   </Box>
-                  <CloseButton onClose={onClose} />
+                  {/* <CloseButton onClose={onClose} /> */}
+                  <HeaderCloseIcon onClick={onClose} />
                 </Box>
                 <Box
                   display="flex"

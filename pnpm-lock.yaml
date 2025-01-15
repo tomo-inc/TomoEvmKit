@@ -722,11 +722,11 @@ importers:
         specifier: '>=5.0.0'
         version: 5.62.16(react@18.3.1)
       '@tomo-inc/social-wallet-sdk':
-        specifier: alpha
-        version: 1.0.24-web(bufferutil@4.0.9)(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(bufferutil@4.0.9)(graphql@16.10.0)(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(utf-8-validate@5.0.10))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.24.1)
+        specifier: 1.0.24-web.2
+        version: 1.0.24-web.2(bufferutil@4.0.9)(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(bufferutil@4.0.9)(graphql@16.10.0)(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(utf-8-validate@5.0.10))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.24.1)
       '@tomo-wallet/uikit':
-        specifier: 0.0.1
-        version: 0.0.1(@babel/runtime@7.26.0)(@types/react@18.3.18)(core-js-pure@3.39.0)(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.0.3
+        version: 0.0.3(@babel/runtime@7.26.0)(@types/react@18.3.18)(core-js-pure@3.39.0)(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vanilla-extract/css':
         specifier: 1.15.5
         version: 1.15.5(babel-plugin-macros@3.1.0)
@@ -4361,11 +4361,11 @@ packages:
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
 
-  '@tomo-inc/social-wallet-sdk@1.0.24-web':
-    resolution: {integrity: sha512-GaCFnRJk9uNa+MB9fp3ahlnOX0oh4zcu9icZH5yNbgnLnAehRhjJt+Os8nCmX0fU/ko+E5XYd10jZk6/fNF9zw==}
+  '@tomo-inc/social-wallet-sdk@1.0.24-web.2':
+    resolution: {integrity: sha512-ArvlOpeEZNor8uDK0VjToq/yMXckF6ffSMduI68Dx/RPuCrW9RNoJfvzovdgRd7J3tJ5cnOMP5IWL+oIuKEQGQ==}
 
-  '@tomo-wallet/uikit@0.0.1':
-    resolution: {integrity: sha512-pkFsthGow+mANtti/68HEMVHxtB1BbWk8HdhObDdCo1wusHtbHIdKfUK2cyqZG9UqHmcLvaEwi4z6KoHtsfERw==}
+  '@tomo-wallet/uikit@0.0.3':
+    resolution: {integrity: sha512-gMJF3NLxlvzyBVRI+NH0nz6WfRUuDBVB+fWc2aNK3DVYJnixil+l5ih2yRLgugOXgMgXyz95W7EZFtiP+PzX9w==}
 
   '@tootallnate/once@1.1.2':
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}
@@ -17573,7 +17573,7 @@ snapshots:
     dependencies:
       '@testing-library/dom': 10.4.0
 
-  '@tomo-inc/social-wallet-sdk@1.0.24-web(bufferutil@4.0.9)(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(bufferutil@4.0.9)(graphql@16.10.0)(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(utf-8-validate@5.0.10))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.24.1)':
+  '@tomo-inc/social-wallet-sdk@1.0.24-web.2(bufferutil@4.0.9)(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(bufferutil@4.0.9)(graphql@16.10.0)(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(utf-8-validate@5.0.10))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.24.1)':
     dependencies:
       '@mysten/sui': 1.18.0(typescript@5.5.2)
       '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -17603,7 +17603,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@tomo-wallet/uikit@0.0.1(@babel/runtime@7.26.0)(@types/react@18.3.18)(core-js-pure@3.39.0)(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@tomo-wallet/uikit@0.0.3(@babel/runtime@7.26.0)(@types/react@18.3.18)(core-js-pure@3.39.0)(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@emotion/react': 11.14.0(@types/react@18.3.18)(react@18.3.1)
       '@emotion/styled': 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
