@@ -1,4 +1,4 @@
-import { type Chain, getDefaultConfig } from '@rainbow-me/rainbowkit';
+import { type Chain, getDefaultConfig } from '@tomo-wallet/tomo-evm-kit';
 import {
   argentWallet,
   berasigWallet,
@@ -60,7 +60,7 @@ import {
   xdefiWallet,
   zealWallet,
   zerionWallet,
-} from '@rainbow-me/rainbowkit/wallets';
+} from '@tomo-wallet/tomo-evm-kit/wallets';
 import { publicActions } from 'viem';
 import {
   arbitrum,
