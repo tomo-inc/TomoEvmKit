@@ -62,7 +62,7 @@ function IconImg({
   return <img alt={alt || ''} src={src} {...props} className={className} />;
 }
 
-export function TomoConnectModal({ opened, onClose }: Props) {
+export function TomoConnectModalInner({ opened, onClose }: Props) {
   const [selectedWallet, setSelectedWallet] = useState<WalletConnector>();
   const [qrCodeUri, setQrCodeUri] = useState<string>();
   const hasQrCode = !!selectedWallet?.qrCode && qrCodeUri;
@@ -237,10 +237,19 @@ export function TomoConnectModal({ opened, onClose }: Props) {
   useEffect(() => {
     let walletOpts: (WalletItemProps & { wallet: WalletConnector })[] =
       wallets.map((w) => {
+        let desc = '';
+        if (w.installed || w.groupName === 'Installed') desc = 'Installed';
+        else {
+          const platformList = [];
+          if (w.downloadUrls?.browserExtension) platformList.push('Extension');
+          if (w.downloadUrls?.android || w.downloadUrls?.ios)
+            platformList.push('App');
+          desc = platformList.join(' & ');
+        }
         return {
           key: w.id,
           name: w.name,
-          desc: w.name,
+          desc,
           icon: (
             <div
               style={{
@@ -627,4 +636,8 @@ export function TomoConnectModal({ opened, onClose }: Props) {
       </Box>
     </Popup>
   );
+}
+
+export function TomoConnectModal(props: Props) {
+  return props.opened ? <TomoConnectModalInner {...props} /> : null;
 }
