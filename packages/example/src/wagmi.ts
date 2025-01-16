@@ -92,6 +92,7 @@ import {
   zkSync,
   zora,
   zoraSepolia,
+  berachainTestnetbArtio
 } from 'wagmi/chains';
 
 const projectId =
@@ -190,25 +191,26 @@ export const config = getDefaultConfig({
     sei,
     mantle,
     celo,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true'
-      ? [
-          sepolia,
-          holesky,
-          polygonMumbai,
-          optimismSepolia,
-          arbitrumSepolia,
-          baseSepolia,
-          bscTestnet,
-          avalancheFuji,
-          zoraSepolia,
-          blastSepolia,
-          inkSepolia,
-          zetachainAthensTestnet,
-          klaytnBaobab,
-          mantleTestnet,
-          celoAlfajores,
-        ]
-      : []),
+    // ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true'
+    // ? [
+    sepolia,
+    holesky,
+    polygonMumbai,
+    optimismSepolia,
+    arbitrumSepolia,
+    baseSepolia,
+    bscTestnet,
+    avalancheFuji,
+    zoraSepolia,
+    blastSepolia,
+    inkSepolia,
+    zetachainAthensTestnet,
+    klaytnBaobab,
+    mantleTestnet,
+    celoAlfajores,
+    berachainTestnetbArtio,
+    // ]
+    // : []),
   ],
   wallets: [
     {
