@@ -95,7 +95,15 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
       accountInfo={{
         address,
         name: connector?.name || '',
-        iconSrc: connector?.icon || (connector?.iconUrl as string) || '',
+        icon: (
+          <div style={{ width: 46, height: 46, borderRadius: 10 }}>
+            <AsyncImage
+              src={connector?.icon || (connector?.iconUrl as string) || ''}
+              fullHeight
+              fullWidth
+            />
+          </div>
+        ),
       }}
       onNetworkSwitch={async () => {
         console.log('switch');
