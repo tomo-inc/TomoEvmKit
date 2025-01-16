@@ -1,6 +1,6 @@
 export { ConnectButton } from './components/ConnectButton/ConnectButton';
 export { WalletButton } from './components/WalletButton/WalletButton';
-export { RainbowKitProvider } from './components/RainbowKitProvider/RainbowKitProvider';
+export { RainbowKitProvider as TomoEvmKitProvider } from './components/RainbowKitProvider/RainbowKitProvider';
 export { getDefaultConfig } from './config/getDefaultConfig';
 export { getDefaultWallets } from './wallets/getDefaultWallets';
 export { getWalletConnectConnector } from './wallets/getWalletConnectConnector';

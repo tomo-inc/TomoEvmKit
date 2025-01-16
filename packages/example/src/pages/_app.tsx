@@ -12,7 +12,7 @@ import {
   type AvatarComponent,
   type DisclaimerComponent,
   type Locale,
-  RainbowKitProvider,
+  TomoEVMKitProvider,
   darkTheme,
   getDefaultConfig,
   lightTheme,
@@ -186,7 +186,7 @@ function RainbowKitApp({
     //   enabled={authEnabled}
     //   getSiweMessageOptions={getSiweMessageOptions}
     // >
-    <RainbowKitProvider
+    <TomoEVMKitProvider
       appInfo={{
         ...demoAppInfo,
         ...(showDisclaimer && { disclaimer: DisclaimerDemo }),
@@ -514,7 +514,7 @@ function RainbowKitApp({
           </>
         )}
       </div>
-    </RainbowKitProvider>
+    </TomoEVMKitProvider>
     // </RainbowKitSiweNextAuthProvider>
   );
 }
