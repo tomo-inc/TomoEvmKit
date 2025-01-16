@@ -152,16 +152,26 @@ const ink = {
 // Testing `preference` type
 coinbaseWallet.preference = 'all';
 
-const clientId = process.env.NEXT_PUBLIC_TOMO_CLIENT_ID;
+const isProd = process.env.APP_ENV === 'production';
+
+console.log('APP_ENV', process.env.APP_ENV);
+
+const clientId = isProd
+  ? process.env.NEXT_PUBLIC_TOMO_CLIENT_ID_PROD
+  : process.env.NEXT_PUBLIC_TOMO_CLIENT_ID_DEV;
 
 export const config = getDefaultConfig({
   appName: 'TomoEvmKit Demo',
   projectId,
   clientId: clientId,
-  devOption: {
-    relayBase: 'https://social-relay-dev.tomo.inc',
-    connect: 'https://app.unyx.tech/api/',
-  },
+  ...(isProd
+    ? {}
+    : {
+        devOption: {
+          relayBase: 'https://social-relay-dev.tomo.inc',
+          connect: 'https://app.unyx.tech/api/',
+        },
+      }),
   chains: [
     mainnet,
     polygon,
