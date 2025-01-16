@@ -152,9 +152,9 @@ const ink = {
 // Testing `preference` type
 coinbaseWallet.preference = 'all';
 
-const isProd = process.env.APP_ENV === 'production';
+const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production';
 
-console.log('APP_ENV', process.env.APP_ENV);
+console.log('NEXT_PUBLIC_APP_ENV', process.env.NEXT_PUBLIC_APP_ENV);
 
 const clientId = isProd
   ? process.env.NEXT_PUBLIC_TOMO_CLIENT_ID_PROD
