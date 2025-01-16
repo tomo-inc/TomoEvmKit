@@ -92,7 +92,7 @@ import {
   zkSync,
   zora,
   zoraSepolia,
-  berachainTestnetbArtio
+  berachainTestnetbArtio,
 } from 'wagmi/chains';
 
 const projectId =

@@ -14,12 +14,10 @@ import {
   useWalletConnectors,
   type WalletConnector,
 } from '../../wallets/useWalletConnectors';
-import { groupBy } from '../../utils/groupBy';
 import { addLatestWalletId } from '../../wallets/latestWalletId';
 import { WalletStep } from '../ConnectOptions/DesktopOptions';
 import { isSafari } from '../../utils/browsers';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
-import { maxWidth } from '../WalletButton/WalletButton.css';
 import {
   ConnectDetail,
   DownloadDetail,
@@ -32,10 +30,7 @@ import {
 import { i18n } from '../../locales';
 import { ConnectModalIntro } from './ConnectModalIntro';
 import { Box } from '../Box/Box';
-import { touchableStyles } from '../../css/touchableStyles';
 import { Text } from '../Text/Text';
-import { CloseButton } from '../CloseButton/CloseButton';
-import { BackIcon } from '../Icons/Back';
 import googleIcon from '../../../assets/icon_google.svg';
 import xIcon from '../../../assets/icon_x.svg';
 import kakaoIcon from '../../../assets/icon_kakao.svg';
@@ -46,6 +41,8 @@ import type {
   LoginType,
   UserSocialInfo,
 } from '@tomo-inc/social-wallet-sdk/dist/types/types';
+import { connectMobile } from './connectMobile';
+import { isMobile } from '../../utils/isMobile';
 
 interface Props {
   opened: boolean;
@@ -65,19 +62,11 @@ function IconImg({
   return <img alt={alt || ''} src={src} {...props} className={className} />;
 }
 
-function TomoConnectModalInner({ opened, onClose }: Props) {
-  // const titleId = 'rk_connect_title';
-  // const [selectedOptionId, setSelectedOptionId] = useState<
-  // string | undefined
-  // >();
+export function TomoConnectModal({ opened, onClose }: Props) {
   const [selectedWallet, setSelectedWallet] = useState<WalletConnector>();
   const [qrCodeUri, setQrCodeUri] = useState<string>();
   const hasQrCode = !!selectedWallet?.qrCode && qrCodeUri;
   const [connectionError, setConnectionError] = useState(false);
-  // const modalSize = useContext(ModalSizeContext);
-  // const compactModeEnabled = modalSize === ModalSizeOptions.COMPACT;
-  // const { disclaimer: Disclaimer } = useContext(AppContext);
-  // const { i18n } = useContext(I18nContext);
   const safari = isSafari();
 
   const initialized = useRef(false);
@@ -248,19 +237,10 @@ function TomoConnectModalInner({ opened, onClose }: Props) {
   useEffect(() => {
     let walletOpts: (WalletItemProps & { wallet: WalletConnector })[] =
       wallets.map((w) => {
-        let desc = '';
-        if (w.installed || w.groupName === 'Installed') desc = 'Installed';
-        else {
-          const platformList = [];
-          if (w.downloadUrls?.browserExtension) platformList.push('Extension');
-          if (w.downloadUrls?.android || w.downloadUrls?.ios)
-            platformList.push('App');
-          desc = platformList.join(' & ');
-        }
         return {
           key: w.id,
           name: w.name,
-          desc,
+          desc: w.name,
           icon: (
             <div
               style={{
@@ -495,8 +475,6 @@ function TomoConnectModalInner({ opened, onClose }: Props) {
   };
 
   const login = async (loginType: LoginType) => {
-    // todo
-    // loadingFn(async () => {
     const tomoSdk = await getTomoSdk();
     const ret = await tomoSdk.login(loginType);
     if (ret) {
@@ -513,7 +491,6 @@ function TomoConnectModalInner({ opened, onClose }: Props) {
         console.log('login error', e);
       }
     }
-    // })
   };
 
   /** social login */
@@ -543,13 +520,11 @@ function TomoConnectModalInner({ opened, onClose }: Props) {
           }
           await approveLogin();
         } catch (e: any) {
-          // toast.error(e?.message || 'Failed')
           console.log('login error', e);
         }
       }
     }
   };
-
   return (
     <Popup opened={opened}>
       {(compactModeEnabled ? walletStep === WalletStep.None : true) && (
@@ -565,7 +540,13 @@ function TomoConnectModalInner({ opened, onClose }: Props) {
             onClickSocialItem={async (s: { key: any }) => {
               login(s.key as any);
             }}
-            onClickWalletItem={(w: any) => selectWallet(w.wallet)}
+            onClickWalletItem={(w: any) => {
+              if (isMobile()) {
+                connectMobile(w.wallet);
+              } else {
+                selectWallet(w.wallet);
+              }
+            }}
           />
         </>
       )}
@@ -646,8 +627,4 @@ function TomoConnectModalInner({ opened, onClose }: Props) {
       </Box>
     </Popup>
   );
-}
-
-export function TomoConnectModal(props: Props) {
-  return props.opened ? <TomoConnectModalInner {...props} /> : null;
 }
