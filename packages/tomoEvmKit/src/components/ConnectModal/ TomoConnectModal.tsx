@@ -644,6 +644,5 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
 }
 
 export function TomoConnectModal(props: Props) {
-  return <TomoConnectModalInner {...props} />;
-  // return props.opened ? <TomoConnectModalInner {...props} /> : null;
+  return props.opened ? <TomoConnectModalInner {...props} /> : null;
 }
