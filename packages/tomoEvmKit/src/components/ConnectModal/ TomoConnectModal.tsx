@@ -254,8 +254,8 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
             <div
               style={{
                 borderRadius: 10,
-                width: '100%',
-                height: '100%',
+                width: 48,
+                height: 48,
                 overflow: 'hidden',
               }}
             >
@@ -263,9 +263,7 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
                 background={'transparent'}
                 useAsImage={!w.isRainbowKitConnector}
                 borderRadius="6"
-                height="54"
                 src={w.iconUrl}
-                width="54"
                 fullWidth
                 fullHeight
               />
