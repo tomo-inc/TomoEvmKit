@@ -563,9 +563,11 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
         <Box
           display="flex"
           flexDirection="row"
-          style={{ maxHeight: compactModeEnabled ? 468 : 504 }}
+          style={{
+            maxHeight: walletStep === WalletStep.DownloadOptions ? 414 : 468,
+          }}
         >
-          {(compactModeEnabled ? walletStep !== WalletStep.None : true) && (
+          {walletStep !== WalletStep.None && (
             <>
               {!compactModeEnabled && (
                 <Box background="generalBorder" minWidth="1" width="1" />
@@ -582,7 +584,7 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
                   justifyContent="space-between"
                   marginBottom="12"
                 >
-                  <Box width="28">
+                  <Box>
                     {headerBackButtonLink && (
                       <HeaderBackIcon
                         onClick={() => {
@@ -604,6 +606,9 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
                         size="18"
                         textAlign="center"
                         weight="heavy"
+                        style={{
+                          width: '100%',
+                        }}
                       >
                         {headerLabel}
                       </Text>
@@ -639,5 +644,6 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
 }
 
 export function TomoConnectModal(props: Props) {
-  return props.opened ? <TomoConnectModalInner {...props} /> : null;
+  return <TomoConnectModalInner {...props} />;
+  // return props.opened ? <TomoConnectModalInner {...props} /> : null;
 }

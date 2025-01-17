@@ -420,14 +420,14 @@ export function ConnectDetail({
 const DownloadOptionsBox = ({
   actionLabel,
   description,
-  iconAccent,
+  // iconAccent,
   iconBackground,
   iconUrl,
   isCompact,
   onAction,
   title,
   url,
-  variant,
+  // variant,
 }: {
   iconAccent?: string;
   title: string;
@@ -440,9 +440,6 @@ const DownloadOptionsBox = ({
   iconBackground?: string;
   variant: 'browser' | 'app' | 'desktop';
 }) => {
-  const isBrowserCard = variant === 'browser';
-  const gradientRgbas =
-    !isBrowserCard && iconAccent && getGradientRGBAs(iconAccent);
   return (
     <Box
       alignItems="center"
@@ -452,7 +449,10 @@ const DownloadOptionsBox = ({
       overflow="hidden"
       paddingX={isCompact ? '18' : '44'}
       position="relative"
-      style={{ flex: 1, isolation: 'isolate' }}
+      style={{
+        // height: 'calc(50% - 5px)',
+        height: 151,
+      }}
       width="full"
     >
       <Box
@@ -467,140 +467,55 @@ const DownloadOptionsBox = ({
           right: '0',
           top: '0',
           zIndex: 1,
+          background: 'white',
+          border: '1px solid #EBEBF4',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '24px 12px',
         }}
-      />
-      {isBrowserCard && (
-        <Box
-          background="downloadTopCardBackground"
-          height="full"
-          position="absolute"
-          style={{
-            zIndex: 0,
-          }}
-          width="full"
-        >
-          <Box
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-            style={{
-              bottom: '0',
-              filter: 'blur(20px)',
-              left: '0',
-              position: 'absolute',
-              right: '0',
-              top: '0',
-              transform: 'translate3d(0, 0, 0)',
-            }}
-          >
-            <Box
-              style={{
-                filter: 'blur(100px)',
-                marginLeft: -27,
-                marginTop: -20,
-                opacity: 0.6,
-                transform: 'translate3d(0, 0, 0)',
-              }}
-            >
-              <AsyncImage
-                borderRadius="full"
-                height="200"
-                src={iconUrl}
-                width="200"
-              />
-            </Box>
-            <Box
-              style={{
-                filter: 'blur(100px)',
-                marginRight: 0,
-                marginTop: 105,
-                opacity: 0.6,
-                overflow: 'auto',
-                transform: 'translate3d(0, 0, 0)',
-              }}
-            >
-              <AsyncImage
-                borderRadius="full"
-                height="200"
-                src={iconUrl}
-                width="200"
-              />
-            </Box>
-          </Box>
-        </Box>
-      )}
-      {!isBrowserCard && gradientRgbas && (
-        <Box
-          background="downloadBottomCardBackground"
-          style={{
-            bottom: '0',
-            left: '0',
-            position: 'absolute',
-            right: '0',
-            top: '0',
-          }}
-        >
-          <Box
-            position="absolute"
-            style={{
-              background: `radial-gradient(50% 50% at 50% 50%, ${gradientRgbas[0]} 0%, ${gradientRgbas[1]} 25%, rgba(0,0,0,0) 100%)`,
-              height: 564,
-              left: -215,
-              top: -197,
-              transform: 'translate3d(0, 0, 0)',
-              width: 564,
-            }}
-          />
-          <Box
-            position="absolute"
-            style={{
-              background: `radial-gradient(50% 50% at 50% 50%, ${gradientRgbas[2]} 0%, rgba(0, 0, 0, 0) 100%)`,
-              height: 564,
-              left: -1,
-              top: -76,
-              transform: 'translate3d(0, 0, 0)',
-              width: 564,
-            }}
-          />
-        </Box>
-      )}
-      <Box
-        alignItems="flex-start"
-        display="flex"
-        flexDirection="row"
-        gap="24"
-        height="max"
-        justifyContent="center"
-        style={{ zIndex: 1 }}
       >
-        <Box>
-          <AsyncImage
-            height="60"
-            src={iconUrl}
-            width="60"
-            {...(iconBackground
-              ? {
-                  background: iconBackground,
-                  borderColor: 'generalBorder',
-                  borderRadius: '10',
-                }
-              : null)}
-          />
-        </Box>
         <Box
+          alignItems="flex-start"
           display="flex"
           flexDirection="column"
-          gap="4"
-          style={{ flex: 1 }}
-          width="full"
+          gap="12"
+          height="max"
+          justifyContent="center"
+          style={{ zIndex: 1 }}
+          id="what???"
         >
-          <Text color="modalText" size="14" weight="bold">
-            {title}
-          </Text>
-          <Text color="modalTextSecondary" size="14" weight="medium">
-            {description}
-          </Text>
-          <Box marginTop="14" width="max">
+          <Box display="flex" gap="12">
+            <Box style={{ flexGrow: 1, padding: 4 }}>
+              <AsyncImage
+                height="48"
+                src={iconUrl}
+                width="48"
+                {...(iconBackground
+                  ? {
+                      background: iconBackground,
+                      borderColor: 'generalBorder',
+                      borderRadius: '10',
+                    }
+                  : null)}
+              />
+            </Box>
+
+            <Box>
+              <Text color="modalText" size="14" weight="bold">
+                {title}
+              </Text>
+              <Text color="modalTextSecondary" size="14" weight="medium">
+                {description}
+              </Text>
+            </Box>
+          </Box>
+          <Box
+            display="flex"
+            gap="4"
+            style={{ flex: 1, flexDirection: 'row-reverse' }}
+            width="full"
+          >
             <ActionButton
               href={url}
               label={actionLabel}
@@ -658,10 +573,13 @@ export function DownloadOptionsDetail({
         alignItems="center"
         display="flex"
         flexDirection="column"
-        gap="8"
+        gap="10"
         height="full"
-        justifyContent="center"
+        justifyContent="flex-start"
         width="full"
+        style={{
+          padding: '12px 0',
+        }}
       >
         {extensionDownloadUrl && (
           <DownloadOptionsBox
