@@ -27,7 +27,7 @@ const sizeVariants: Record<
     paddingY: '4',
   },
   small: {
-    fontSize: '14',
+    fontSize: '12',
     paddingX: '10',
     paddingY: '5',
   },

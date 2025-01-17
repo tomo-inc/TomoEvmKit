@@ -277,8 +277,9 @@ export function ConnectDetail({
         <Box
           alignItems="center"
           display="flex"
-          height="full"
           justifyContent="center"
+          marginTop="32"
+          marginBottom="12"
         >
           <QRCode
             logoBackground={iconBackground}
@@ -398,17 +399,17 @@ export function ConnectDetail({
         gap="8"
         height="28"
         justifyContent="space-between"
-        marginTop="12"
       >
         {ready && secondaryAction && (
           <>
-            <Text color="modalTextSecondary" size="14" weight="medium">
+            <Text color="modalTextSecondary" size="12" weight="medium">
               {secondaryAction.description}
             </Text>
             <ActionButton
               label={secondaryAction.label}
               onClick={secondaryAction.onClick}
               type="secondary"
+              size="small"
             />
           </>
         )}
@@ -650,13 +651,13 @@ export function DownloadOptionsDetail({
 }
 
 export function DownloadDetail({
-  changeWalletStep,
+  // changeWalletStep,
   wallet,
 }: {
   changeWalletStep: (newWalletStep: WalletStep) => void;
   wallet: WalletConnector;
 }) {
-  const { downloadUrls, qrCode } = wallet;
+  const { downloadUrls /* qrCode */ } = wallet;
 
   const { i18n } = useContext(I18nContext);
 
@@ -674,9 +675,10 @@ export function DownloadDetail({
       gap="24"
       height="full"
       width="full"
+      marginTop="32"
     >
       <Box style={{ maxWidth: 220, textAlign: 'center' }}>
-        <Text color="modalTextSecondary" size="14" weight="semibold">
+        <Text color="modalTextSecondary" size="12" weight="semibold">
           {i18n.t('get_mobile.description')}
         </Text>
       </Box>
@@ -684,29 +686,6 @@ export function DownloadDetail({
         {downloadUrls?.qrCode ? (
           <QRCode logoSize={0} size={268} uri={downloadUrls.qrCode} />
         ) : null}
-      </Box>
-
-      <Box
-        alignItems="center"
-        borderRadius="10"
-        display="flex"
-        flexDirection="row"
-        gap="8"
-        height="34"
-        justifyContent="space-between"
-        marginBottom="12"
-        paddingY="8"
-      >
-        <ActionButton
-          label={i18n.t('get_mobile.continue.label')}
-          onClick={() =>
-            changeWalletStep(
-              qrCode?.instructions
-                ? WalletStep.InstructionsMobile
-                : WalletStep.Connect,
-            )
-          }
-        />
       </Box>
     </Box>
   );

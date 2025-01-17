@@ -564,7 +564,7 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
           display="flex"
           flexDirection="row"
           style={{
-            maxHeight: walletStep === WalletStep.DownloadOptions ? 414 : 468,
+            maxHeight: walletStep === WalletStep.DownloadOptions ? 414 : 505,
           }}
         >
           {walletStep !== WalletStep.None && (
@@ -575,7 +575,7 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
               <Box
                 display="flex"
                 flexDirection="column"
-                margin="16"
+                margin="20"
                 style={{ flexGrow: 1 }}
               >
                 <Box
@@ -620,7 +620,7 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
                 <Box
                   display="flex"
                   flexDirection="column"
-                  style={{ minHeight: compactModeEnabled ? 396 : 432 }}
+                  style={{ minHeight: 396, paddingBottom: 52 }}
                 >
                   <Box
                     alignItems="center"
