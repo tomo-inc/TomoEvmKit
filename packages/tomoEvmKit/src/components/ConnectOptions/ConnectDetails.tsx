@@ -484,7 +484,6 @@ const DownloadOptionsBox = ({
           height="max"
           justifyContent="center"
           style={{ zIndex: 1 }}
-          id="what???"
         >
           <Box display="flex" gap="12">
             <Box style={{ flexGrow: 1, padding: 4 }}>
@@ -503,10 +502,15 @@ const DownloadOptionsBox = ({
             </Box>
 
             <Box>
-              <Text color="modalText" size="14" weight="bold">
+              <Text
+                color="modalText"
+                size="16"
+                weight="bold"
+                style={{ marginBottom: 8 }}
+              >
                 {title}
               </Text>
-              <Text color="modalTextSecondary" size="14" weight="medium">
+              <Text color="modalTextSecondary" size="13" weight="medium">
                 {description}
               </Text>
             </Box>

@@ -5,7 +5,8 @@ import type { ThemeVars } from '../css/sprinkles.css';
 const systemFontStack =
   '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
 const fontStacks = {
-  rounded: `SFRounded, ui-rounded, "SF Pro Rounded", ${systemFontStack}`,
+  // rounded: `SFRounded, ui-rounded, "SF Pro Rounded", ${systemFontStack}`,
+  rounded: `Switzer, ${systemFontStack}`,
   system: systemFontStack,
 } as const;
 type FontStack = keyof typeof fontStacks;

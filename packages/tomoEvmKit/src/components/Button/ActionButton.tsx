@@ -21,10 +21,10 @@ const sizeVariants: Record<
     paddingY: '10',
   },
   medium: {
-    fontSize: '14',
-    height: '28',
+    fontSize: '12',
+    // height: '28',
     paddingX: '12',
-    paddingY: '4',
+    paddingY: '6',
   },
   small: {
     fontSize: '12',
@@ -65,7 +65,8 @@ export function ActionButton({
         : null
     : 'actionButtonSecondaryBackground';
   const { fontSize, height, paddingX, paddingY } = sizeVariants[size];
-  const hasBorder = !mobile || !isNotLarge;
+  const hasBorder = false;
+  // const hasBorder = !mobile || !isNotLarge;
   return (
     <Box
       {...(href
