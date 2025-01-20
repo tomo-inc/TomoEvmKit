@@ -16,6 +16,9 @@ module.exports = {
     return config;
   },
   output: 'export',
+  images: {
+    unoptimized: true,
+  },
   // i18n: {
   //   defaultLocale: 'en-US',
   //   locales: [
