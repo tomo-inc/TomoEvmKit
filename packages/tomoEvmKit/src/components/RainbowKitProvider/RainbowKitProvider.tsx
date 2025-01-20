@@ -89,7 +89,7 @@ export function RainbowKitProvider({
   coolMode = false,
   id,
   initialChain,
-  locale,
+  // locale,
   modalSize = ModalSizeOptions.WIDE,
   showRecentTransactions = false,
   theme = defaultTheme,
@@ -117,7 +117,8 @@ export function RainbowKitProvider({
   return (
     <RainbowKitChainProvider initialChain={initialChain}>
       <WalletButtonProvider>
-        <I18nProvider locale={locale}>
+        <I18nProvider locale={'en-US'}>
+          {/* <I18nProvider locale={locale}> */}
           <CoolModeContext.Provider value={coolMode}>
             <ModalSizeProvider modalSize={modalSize}>
               <ShowRecentTransactionsContext.Provider
