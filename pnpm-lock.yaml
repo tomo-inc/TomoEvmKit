@@ -192,6 +192,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.55.3
         version: 5.62.16(react@18.3.1)
+      '@tomo-inc/tomo-evm-kit':
+        specifier: workspace:0.0.3
+        version: link:../../packages/tomoEvmKit
       next:
         specifier: ^14.2.10
         version: 14.2.22(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

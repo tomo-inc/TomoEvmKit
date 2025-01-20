@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, globalFontFace } from '@vanilla-extract/css';
 
 export const base = style({
   border: 0,
@@ -10,6 +10,19 @@ export const base = style({
   textAlign: 'left',
   verticalAlign: 'baseline',
   WebkitTapHighlightColor: 'transparent',
+});
+
+globalFontFace('SwitzerBold', {
+  src: `url('https://d13t1x9bdoguib.cloudfront.net/static/fonts/Switzer-Semibold.ttf') format('truetype')`,
+});
+globalFontFace('SwitzerMedium', {
+  src: `url('https://d13t1x9bdoguib.cloudfront.net/static/fonts/Switzer-Medium.ttf') format('truetype')`,
+});
+globalFontFace('SwitzerLight', {
+  src: `url('https://d13t1x9bdoguib.cloudfront.net/static/fonts/Switzer-Light.ttf') format('truetype')`,
+});
+globalFontFace('Switzer', {
+  src: `url('https://d13t1x9bdoguib.cloudfront.net/static/fonts/Switzer-Regular.ttf') format('truetype')`,
 });
 
 const list = style({

@@ -606,6 +606,7 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
                         weight="heavy"
                         style={{
                           width: '100%',
+                          fontFamily: 'SwitzerMedium',
                         }}
                       >
                         {headerLabel}
