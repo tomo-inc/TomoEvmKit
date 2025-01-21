@@ -83,7 +83,11 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
     return null;
   }
 
-  console.log('current connector', connector);
+  const iconSrc =
+    connector?.icon ||
+    (connector?.iconUrl as string) ||
+    (connector?.rkDetails as any)?.iconUrl ||
+    '';
 
   return (
     <ConnectedModal
@@ -99,11 +103,7 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
         name: connector?.name || '',
         icon: (
           <div style={{ width: 46, height: 46, borderRadius: 10 }}>
-            <AsyncImage
-              src={connector?.icon || (connector?.iconUrl as string) || ''}
-              fullHeight
-              fullWidth
-            />
+            <AsyncImage src={iconSrc} fullHeight fullWidth />
           </div>
         ),
       }}
