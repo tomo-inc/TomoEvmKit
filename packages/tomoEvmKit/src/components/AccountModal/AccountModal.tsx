@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {
   useAccount,
   useChainId,
@@ -83,6 +83,12 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
     return null;
   }
 
+  const iconSrc =
+    connector?.icon ||
+    (connector?.iconUrl as string) ||
+    (connector?.rkDetails as any)?.iconUrl ||
+    '';
+
   return (
     <ConnectedModal
       opened={open}
@@ -96,12 +102,15 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
         address,
         name: connector?.name || '',
         icon: (
-          <div style={{ width: 46, height: 46, borderRadius: 10 }}>
-            <AsyncImage
-              src={connector?.icon || (connector?.iconUrl as string) || ''}
-              fullHeight
-              fullWidth
-            />
+          <div
+            style={{
+              width: 46,
+              height: 46,
+              borderRadius: 10,
+              overflow: 'hidden',
+            }}
+          >
+            <AsyncImage src={iconSrc} fullHeight fullWidth />
           </div>
         ),
       }}
