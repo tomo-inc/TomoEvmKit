@@ -1,3 +1,5 @@
+import type { Config } from 'wagmi';
+
 export interface SharedState {
   accountModalOpen: boolean;
   openAccountModalAvailable: boolean;
@@ -5,4 +7,5 @@ export interface SharedState {
   openChainModalAvailable: boolean;
   connectModalOpen: boolean;
   openConnectModalAvailable: boolean;
+  chainName: string | undefined;
 }

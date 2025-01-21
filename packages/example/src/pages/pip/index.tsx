@@ -58,6 +58,7 @@ const Page = () => {
   const { chainModalOpen, openChainModal } = useChainModal();
   const { connectModalOpen, openConnectModal } = useConnectModal();
   const { disconnect } = useDisconnect();
+  const { chain } = useAccount();
 
   useStateSync({
     accountModalOpen,
@@ -66,11 +67,13 @@ const Page = () => {
     openChainModalAvailable: !!openChainModal,
     connectModalOpen,
     openConnectModalAvailable: !!openConnectModal,
+    chainName: chain?.name,
   });
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: initial behavior on mount
   useEffect(() => {
-    openConnectModal?.();
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) openConnectModal?.();
     window.parent.postMessage({ type: 'PIP-ready' }, '*');
     window.onbeforeunload = () => {
       disconnect();
@@ -111,6 +114,13 @@ const Page = () => {
             type="button"
           >
             {accountModalOpen ? 'Account modal opened' : 'Open account modal'}
+          </button>
+          <button
+            disabled={!disconnect}
+            onClick={disconnect}
+            type="button"
+          >
+            disconnect
           </button>
         </div>
       </div> */}
