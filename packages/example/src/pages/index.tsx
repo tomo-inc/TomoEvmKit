@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import type { SharedState } from './Pip';
+import type { SharedState } from '../types/sharedState';
 
 function usePip(iframe: Window) {
   const [pipState, setPipState] = useState<Partial<SharedState>>({});

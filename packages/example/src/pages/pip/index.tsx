@@ -5,15 +5,7 @@ import {
 } from '@tomo-inc/tomo-evm-kit';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAccount, useDisconnect } from 'wagmi';
-
-export interface SharedState {
-  accountModalOpen: boolean;
-  openAccountModalAvailable: boolean;
-  chainModalOpen: boolean;
-  openChainModalAvailable: boolean;
-  connectModalOpen: boolean;
-  openConnectModalAvailable: boolean;
-}
+import type { SharedState } from '../../types/sharedState';
 
 function useListenEvent() {
   const { openAccountModal } = useAccountModal();
