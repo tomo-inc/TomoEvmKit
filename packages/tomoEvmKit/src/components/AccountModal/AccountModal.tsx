@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {
   useAccount,
   useChainId,
@@ -82,6 +82,10 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
   if (!address) {
     return null;
   }
+
+  useEffect(() => {
+    console.log('current connector', connector);
+  }, [connector]);
 
   return (
     <ConnectedModal
