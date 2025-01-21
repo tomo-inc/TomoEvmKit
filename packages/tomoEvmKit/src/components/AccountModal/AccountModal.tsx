@@ -102,7 +102,14 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
         address,
         name: connector?.name || '',
         icon: (
-          <div style={{ width: 46, height: 46, borderRadius: 10 }}>
+          <div
+            style={{
+              width: 46,
+              height: 46,
+              borderRadius: 10,
+              overflow: 'hidden',
+            }}
+          >
             <AsyncImage src={iconSrc} fullHeight fullWidth />
           </div>
         ),
