@@ -1,50 +1,9 @@
-import {
-  type ConnectButton,
-  useAccountModal,
-  useAddRecentTransaction,
-  useChainModal,
-  useConnectModal,
-} from '@tomo-inc/tomo-evm-kit';
 import Image from 'next/image';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useAccount } from 'wagmi';
+import type { SharedState } from './Pip';
 
 function usePip(iframe: Window) {
-  const [isMobile, setIsMobile] = useState(false);
-  const [pipState, setPipState] = useState<{
-    chainModalOpen?: boolean;
-    accountModalOpen?: boolean;
-    connectModalOpen?: boolean;
-  }>({});
-
-  useEffect(() => {
-    // Check the screen width on component mount
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // 768px is a common breakpoint for mobile
-    };
-
-    // Call the function initially
-    handleResize();
-
-    // Add event listener for window resize
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup event listener on unmount
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const {
-    openAccountModal: openAccountModalLocal,
-    accountModalOpen: accountModalOpenLocal,
-  } = useAccountModal();
-  const {
-    openChainModal: openChainModalLocal,
-    chainModalOpen: chainModalOpenLocal,
-  } = useChainModal();
-  const {
-    openConnectModal: openConnectModalLocal,
-    connectModalOpen: connectModalOpenLocal,
-  } = useConnectModal();
+  const [pipState, setPipState] = useState<Partial<SharedState>>({});
 
   useEffect(() => {
     const listener = ({ data }: any) => {
@@ -62,43 +21,24 @@ function usePip(iframe: Window) {
   const methods = useMemo(() => {
     return {
       openAccountModal() {
-        return isMobile
-          ? openAccountModalLocal?.()
-          : iframe?.postMessage({ type: 'openAccountModal' });
+        iframe?.postMessage({ type: 'openAccountModal' });
       },
       openChainModal() {
-        return isMobile
-          ? openChainModalLocal?.()
-          : iframe?.postMessage({ type: 'openChainModal' });
+        iframe?.postMessage({ type: 'openChainModal' });
       },
       openConnectModal() {
-        return isMobile
-          ? openConnectModalLocal?.()
-          : iframe?.postMessage({ type: 'openConnectModal' });
+        iframe?.postMessage({ type: 'openConnectModal' });
       },
     };
-  }, [
-    isMobile,
-    openAccountModalLocal,
-    openChainModalLocal,
-    openConnectModalLocal,
-    iframe,
-  ]);
+  }, [iframe]);
 
   return {
-    state: !isMobile
-      ? pipState
-      : {
-          accountModalOpen: accountModalOpenLocal,
-          connectModalOpen: connectModalOpenLocal,
-          chainModalOpen: chainModalOpenLocal,
-        },
+    state: pipState,
     methods,
   };
 }
 
 const Example = () => {
-  // const { address, isConnected: isWagmiConnected } = useAccount();
   const pipRef = useRef(null);
 
   const [mounted, setMounted] = useState(false);
@@ -106,11 +46,20 @@ const Example = () => {
 
   const {
     methods: { openAccountModal, openChainModal, openConnectModal },
-    state: { chainModalOpen, accountModalOpen, connectModalOpen },
+    state: {
+      chainModalOpen,
+      accountModalOpen,
+      connectModalOpen,
+      openAccountModalAvailable,
+      openChainModalAvailable,
+      openConnectModalAvailable,
+    },
   } = usePip((pipRef?.current as any)?.contentWindow as Window);
 
   const ready = mounted;
   // const connected = isWagmiConnected;
+
+  const oneOfModalOpen = chainModalOpen || accountModalOpen || connectModalOpen;
 
   return (
     <div
@@ -131,7 +80,16 @@ const Example = () => {
         className="demo-header"
       >
         <Image src="/TomoConnect.png" alt={''} width={102} height={48} />
-        <div className="doc-btn">Docs</div>
+        <a
+          href="https://docs.tomo.inc/tomo-sdk/tomoevmkit"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {/* biome-ignore lint/a11y/useValidAriaRole: not important */}
+          <div role="btn" className="doc-btn">
+            Docs
+          </div>
+        </a>
       </div>
       {/* <div
         style={{
@@ -181,7 +139,7 @@ const Example = () => {
             >
               Supported Chains
               <button
-                disabled={!openChainModal}
+                disabled={!openChainModalAvailable}
                 onClick={openChainModal}
                 type="button"
                 style={{ height: '100%' }}
@@ -239,11 +197,13 @@ const Example = () => {
             gap: 20,
           }}
         >
-          <div className="modal-frame">
+          <div
+            className={`modal-frame ${oneOfModalOpen ? 'modal-frame-mobile-visible' : ''}`}
+          >
             {ready && (
               <iframe
                 style={{
-                  height: '100vh',
+                  height: '100%',
                   width: '100%',
                 }}
                 title="modal-picture-in-picture"
@@ -257,7 +217,7 @@ const Example = () => {
               <h3 style={{ fontFamily: 'sans-serif' }}>Modal hooks</h3>
               <div style={{ display: 'flex', gap: 12, paddingBottom: 12 }}>
                 <button
-                  disabled={!openConnectModal}
+                  disabled={!openConnectModalAvailable}
                   onClick={openConnectModal}
                   type="button"
                 >
@@ -266,14 +226,14 @@ const Example = () => {
                     : 'Open connect modal'}
                 </button>
                 <button
-                  disabled={!openChainModal}
+                  disabled={!openChainModalAvailable}
                   onClick={openChainModal}
                   type="button"
                 >
                   {chainModalOpen ? 'Chain modal opened' : 'Open chain modal'}
                 </button>
                 <button
-                  disabled={!openAccountModal}
+                  disabled={!openAccountModalAvailable}
                   onClick={openAccountModal}
                   type="button"
                 >
@@ -284,10 +244,16 @@ const Example = () => {
               </div>
             </div>
           )}
-          <div className="tg-demo-link-btn">
-            See our Telegram SDK Demo{' '}
-            <Image width={22} height={22} alt="" src="./tgIcon.png" />
-          </div>
+          <a
+            href="http://t.me/tomowalletbot/tomo_sdk_demo"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div className="tg-demo-link-btn">
+              See our Telegram SDK Demo{' '}
+              <Image width={22} height={22} alt="" src="./tgIcon.png" />
+            </div>
+          </a>
         </div>
       </div>
     </div>

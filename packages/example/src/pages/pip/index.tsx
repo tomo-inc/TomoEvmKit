@@ -4,7 +4,16 @@ import {
   useConnectModal,
 } from '@tomo-inc/tomo-evm-kit';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useAccount } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
+
+export interface SharedState {
+  accountModalOpen: boolean;
+  openAccountModalAvailable: boolean;
+  chainModalOpen: boolean;
+  openChainModalAvailable: boolean;
+  connectModalOpen: boolean;
+  openConnectModalAvailable: boolean;
+}
 
 function useListenEvent() {
   const { openAccountModal } = useAccountModal();
@@ -36,7 +45,7 @@ function useListenEvent() {
   }, [openAccountModal, openChainModal, openConnectModal]);
 }
 
-function useStateSync(state: { [stateName: string]: any }) {
+function useStateSync(state: SharedState) {
   const deps = Object.values(state);
   // biome-ignore lint/correctness/useExhaustiveDependencies: notify when value change
   useEffect(() => {
@@ -56,6 +65,7 @@ const Page = () => {
   const { accountModalOpen, openAccountModal } = useAccountModal();
   const { chainModalOpen, openChainModal } = useChainModal();
   const { connectModalOpen, openConnectModal } = useConnectModal();
+  const { disconnect } = useDisconnect();
 
   useStateSync({
     accountModalOpen,
@@ -66,8 +76,13 @@ const Page = () => {
     openConnectModalAvailable: !!openConnectModal,
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: initial behavior on mount
   useEffect(() => {
+    openConnectModal?.();
     window.parent.postMessage({ type: 'PIP-ready' }, '*');
+    window.onbeforeunload = () => {
+      disconnect();
+    };
   }, []);
 
   return (
@@ -81,8 +96,7 @@ const Page = () => {
         overflow: 'hidden',
       }}
     >
-      {/* {ready && ( */}
-      <div>
+      {/* <div>
         <h3 style={{ fontFamily: 'sans-serif' }}>Modal hooks</h3>
         <div style={{ display: 'flex', gap: 12, paddingBottom: 12 }}>
           <button
@@ -107,8 +121,7 @@ const Page = () => {
             {accountModalOpen ? 'Account modal opened' : 'Open account modal'}
           </button>
         </div>
-      </div>
-      {/* )} */}
+      </div> */}
     </div>
   );
 };
