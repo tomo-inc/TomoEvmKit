@@ -83,9 +83,7 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
     return null;
   }
 
-  useEffect(() => {
-    console.log('current connector', connector);
-  }, [connector]);
+  console.log('current connector', connector);
 
   return (
     <ConnectedModal
