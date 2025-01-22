@@ -1,13 +1,8 @@
 import type { Transport } from 'viem';
-import {
-  createConnector,
-  http,
-  injected,
-  type CreateConfigParameters,
-} from 'wagmi';
+import { http, type CreateConfigParameters } from 'wagmi';
 import { createConfig } from 'wagmi';
 import type { RainbowKitChain } from '../components/RainbowKitProvider/RainbowKitChainContext';
-import type { Wallet, WalletList } from '../wallets/Wallet';
+import type { WalletList } from '../wallets/Wallet';
 import { computeWalletConnectMetaData } from '../wallets/computeWalletConnectMetaData';
 import { connectorsForWallets } from '../wallets/connectorsForWallets';
 import {
@@ -40,11 +35,6 @@ interface GetDefaultConfigParameters<
   appIcon?: string;
   wallets?: WalletList;
   projectId: string;
-  clientId?: string;
-  devOption?: {
-    connect?: string;
-    relayBase?: string;
-  };
 }
 
 const createDefaultTransports = <
@@ -62,50 +52,6 @@ const createDefaultTransports = <
   return transportsObject;
 };
 
-const logoUrl = 'https://d13t1x9bdoguib.cloudfront.net/static/tomo.svg';
-function makeTomoWalletFn({
-  clientId = '',
-  connect,
-  relayBase,
-}: {
-  clientId: string;
-  connect?: string;
-  relayBase?: string;
-}): () => Wallet {
-  return () => {
-    let provider: unknown;
-    return {
-      id: 'TomoWallet',
-      name: 'Tomo Wallet',
-      iconUrl: logoUrl,
-      installed: true,
-      iconBackground: '#000000',
-      createConnector: (walletDetails) => {
-        return createConnector((config) => ({
-          ...injected({
-            // shimDisconnect: false
-          })(config),
-          ...walletDetails.rkDetails,
-          getProvider: async () => {
-            if (provider) return provider;
-            //@ts-ignore
-            const socialSdk = await import('@tomo-inc/social-wallet-sdk');
-            const { TomoSDK, EthereumProvider } = socialSdk;
-            const tomoSDK = new TomoSDK({
-              clientId: clientId,
-              ethereumProvider: new EthereumProvider(),
-              connect,
-              relayBase,
-            });
-            const ethereum = tomoSDK.ethereumProvider;
-            return ethereum;
-          },
-        }));
-      },
-    };
-  };
-}
-
 export const getDefaultConfig = <
   chains extends _chains,
   transports extends _transports,
@@ -116,8 +62,6 @@ export const getDefaultConfig = <
   appIcon,
   wallets,
   projectId,
-  clientId,
-  devOption: { connect, relayBase } = {},
   ...wagmiParameters
 }: GetDefaultConfigParameters<chains, transports>) => {
   const { transports, chains, ...restWagmiParameters } = wagmiParameters;
@@ -129,36 +73,19 @@ export const getDefaultConfig = <
     appIcon,
   });
 
-  if (!clientId) console.error('please enter your tomo client id');
-
-  const tomoWallet = makeTomoWalletFn({
-    clientId: clientId || '',
-    connect,
-    relayBase,
-  });
-
   const connectors = connectorsForWallets(
-    wallets
-      ? [
-          {
-            groupName: 'Default',
-            wallets: [tomoWallet],
-          },
-          ...wallets,
-        ]
-      : [
-          {
-            groupName: 'Popular',
-            wallets: [
-              tomoWallet,
-              safeWallet,
-              rainbowWallet,
-              coinbaseWallet,
-              metaMaskWallet,
-              walletConnectWallet,
-            ],
-          },
+    wallets || [
+      {
+        groupName: 'Popular',
+        wallets: [
+          safeWallet,
+          rainbowWallet,
+          coinbaseWallet,
+          metaMaskWallet,
+          walletConnectWallet,
         ],
+      },
+    ],
     {
       projectId,
       appName,
@@ -172,7 +99,6 @@ export const getDefaultConfig = <
   return createConfig({
     connectors,
     chains,
-    multiInjectedProviderDiscovery: true,
     transports:
       transports || createDefaultTransports<chains, transports>(chains),
     ...restWagmiParameters,

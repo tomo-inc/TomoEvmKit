@@ -402,7 +402,7 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
                 weight="heavy"
                 testId={'connect-header-label'}
               >
-                ??? {i18n.t('connect.title')}
+                {i18n.t('connect.title')}
               </Text>
             </Box>
             {compactModeEnabled && (

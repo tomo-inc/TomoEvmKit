@@ -5,7 +5,6 @@ import ConnectOptions from '../ConnectOptions/ConnectOptions';
 import { Dialog } from '../Dialog/Dialog';
 import { DialogContent } from '../Dialog/DialogContent';
 import { SignIn } from '../SignIn/SignIn';
-import { TomoConnectModal } from './ TomoConnectModal';
 
 export interface ConnectModalProps {
   open: boolean;
@@ -36,14 +35,11 @@ export function ConnectModal({ onClose, open }: ConnectModalProps) {
 
   if (connectionStatus === 'disconnected') {
     return (
-      // <Dialog onClose={onConnectModalCancel} open={open} titleId={titleId}>
-      //   <DialogContent bottomSheetOnMobile padding="0" wide>
-      //     <ConnectOptions onClose={onConnectModalCancel} />
-      //   </DialogContent>
-      // </Dialog>
-      // <Dialog onClose={onConnectModalCancel} open={open} titleId={titleId}>
-      <TomoConnectModal opened={open} onClose={onConnectModalCancel} />
-      // </Dialog>
+      <Dialog onClose={onConnectModalCancel} open={open} titleId={titleId}>
+        <DialogContent bottomSheetOnMobile padding="0" wide>
+          <ConnectOptions onClose={onConnectModalCancel} />
+        </DialogContent>
+      </Dialog>
     );
   }
 

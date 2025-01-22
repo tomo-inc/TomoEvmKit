@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import { describe, expect, it } from 'vitest';
 import { useConnect } from 'wagmi';
 import { type Chain, arbitrum, mainnet, optimism } from 'wagmi/chains';
-import { renderWithProviders } from '../../../test/';
+import { renderWithProviders } from '../../../test';
 import { ChainModal } from './ChainModal';
 
 const ChainModalWithConnectButton = ({ onClose }: { onClose?: () => void }) => {

@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useAccount, useDisconnect, useSwitchChain } from 'wagmi';
 import { useConfig } from 'wagmi';
 import { isMobile } from '../../utils/isMobile';
@@ -16,8 +16,6 @@ import {
   DesktopScrollClassName,
   MobileScrollClassName,
 } from './ChainModal.css';
-import { NetworkPopup } from '@tomo-wallet/uikit';
-import { AsyncImage } from '../AsyncImage/AsyncImage';
 
 export interface ChainModalProps {
   open: boolean;
@@ -26,9 +24,9 @@ export interface ChainModalProps {
 
 export function ChainModal({ onClose, open }: ChainModalProps) {
   const { chainId } = useAccount();
-  // const { chains } = useConfig();
+  const { chains } = useConfig();
   const [pendingChainId, setPendingChainId] = useState<number | null>(null);
-  const { switchChainAsync /* switchChain */ } = useSwitchChain({
+  const { switchChain } = useSwitchChain({
     mutation: {
       onMutate: ({ chainId: _chainId }) => {
         setPendingChainId(_chainId);
@@ -45,155 +43,120 @@ export function ChainModal({ onClose, open }: ChainModalProps) {
     },
   });
 
-  // const { i18n } = useContext(I18nContext);
+  const { i18n } = useContext(I18nContext);
 
-  // const { disconnect } = useDisconnect();
-  // const titleId = 'rk_chain_modal_title';
-  // const mobile = isMobile();
-  // const isCurrentChainSupported = chains.some((chain) => chain.id === chainId);
-  // const chainIconSize = mobile ? '36' : '28';
+  const { disconnect } = useDisconnect();
+  const titleId = 'rk_chain_modal_title';
+  const mobile = isMobile();
+  const isCurrentChainSupported = chains.some((chain) => chain.id === chainId);
+  const chainIconSize = mobile ? '36' : '28';
   const rainbowkitChains = useRainbowKitChains();
-
-  const networkOptions = useMemo(() => {
-    return rainbowkitChains.map((rc) => ({
-      id: rc.id,
-      name: rc.name,
-      logo: (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: 32,
-            height: 32,
-          }}
-        >
-          <AsyncImage src={rc?.iconUrl || ''} fullWidth fullHeight />
-        </div>
-      ),
-      onClick: async () => {
-        await switchChainAsync({ chainId: rc.id });
-      },
-    }));
-  }, [rainbowkitChains, switchChainAsync]);
-
-  const selectedNetwork = useMemo(() => {
-    return networkOptions.find((n) => n.id === chainId);
-  }, [networkOptions, chainId]);
 
   if (!chainId) {
     return null;
   }
 
   return (
-    <NetworkPopup
-      opened={open}
-      networkOptions={networkOptions}
-      onClose={onClose}
-      selectedNetwork={selectedNetwork}
-    />
+    <Dialog onClose={onClose} open={open} titleId={titleId}>
+      <DialogContent bottomSheetOnMobile paddingBottom="0">
+        <Box display="flex" flexDirection="column" gap="14">
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+          >
+            {mobile && <Box width="30" />}
+            <Box paddingBottom="0" paddingLeft="8" paddingTop="4">
+              <Text
+                as="h1"
+                color="modalText"
+                id={titleId}
+                size={mobile ? '20' : '18'}
+                weight="heavy"
+              >
+                {i18n.t('chains.title')}
+              </Text>
+            </Box>
+            <CloseButton onClose={onClose} />
+          </Box>
+          {!isCurrentChainSupported && (
+            <Box marginX="8" textAlign={mobile ? 'center' : 'left'}>
+              <Text color="modalTextSecondary" size="14" weight="medium">
+                {i18n.t('chains.wrong_network')}
+              </Text>
+            </Box>
+          )}
+          <Box
+            className={mobile ? MobileScrollClassName : DesktopScrollClassName}
+            display="flex"
+            flexDirection="column"
+            gap="4"
+            padding="2"
+            paddingBottom="16"
+          >
+            {rainbowkitChains.map(
+              ({ iconBackground, iconUrl, id, name }, idx) => {
+                return (
+                  <Chain
+                    key={id}
+                    chainId={id}
+                    currentChainId={chainId}
+                    switchChain={switchChain}
+                    chainIconSize={chainIconSize}
+                    isLoading={pendingChainId === id}
+                    src={iconUrl}
+                    name={name}
+                    iconBackground={iconBackground}
+                    idx={idx}
+                  />
+                );
+              },
+            )}
+            {!isCurrentChainSupported && (
+              <>
+                <Box background="generalBorderDim" height="1" marginX="8" />
+                <MenuButton
+                  onClick={() => disconnect()}
+                  testId="chain-option-disconnect"
+                >
+                  <Box
+                    color="error"
+                    fontFamily="body"
+                    fontSize="16"
+                    fontWeight="bold"
+                  >
+                    <Box
+                      alignItems="center"
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="space-between"
+                    >
+                      <Box
+                        alignItems="center"
+                        display="flex"
+                        flexDirection="row"
+                        gap="4"
+                        height={chainIconSize}
+                      >
+                        <Box
+                          alignItems="center"
+                          color="error"
+                          height={chainIconSize}
+                          justifyContent="center"
+                          marginRight="8"
+                        >
+                          <DisconnectSqIcon size={Number(chainIconSize)} />
+                        </Box>
+                        <div>{i18n.t('chains.disconnect')}</div>
+                      </Box>
+                    </Box>
+                  </Box>
+                </MenuButton>
+              </>
+            )}
+          </Box>
+        </Box>
+      </DialogContent>
+    </Dialog>
   );
-
-  // return (
-  //   <Dialog onClose={onClose} open={open} titleId={titleId}>
-  //     <DialogContent bottomSheetOnMobile paddingBottom="0">
-  //       <Box display="flex" flexDirection="column" gap="14">
-  //         <Box
-  //           display="flex"
-  //           flexDirection="row"
-  //           justifyContent="space-between"
-  //         >
-  //           {mobile && <Box width="30" />}
-  //           <Box paddingBottom="0" paddingLeft="8" paddingTop="4">
-  //             <Text
-  //               as="h1"
-  //               color="modalText"
-  //               id={titleId}
-  //               size={mobile ? '20' : '18'}
-  //               weight="heavy"
-  //             >
-  //               {i18n.t('chains.title')}
-  //             </Text>
-  //           </Box>
-  //           <CloseButton onClose={onClose} />
-  //         </Box>
-  //         {!isCurrentChainSupported && (
-  //           <Box marginX="8" textAlign={mobile ? 'center' : 'left'}>
-  //             <Text color="modalTextSecondary" size="14" weight="medium">
-  //               {i18n.t('chains.wrong_network')}
-  //             </Text>
-  //           </Box>
-  //         )}
-  //         <Box
-  //           className={mobile ? MobileScrollClassName : DesktopScrollClassName}
-  //           display="flex"
-  //           flexDirection="column"
-  //           gap="4"
-  //           padding="2"
-  //           paddingBottom="16"
-  //         >
-  //           {rainbowkitChains.map(
-  //             ({ iconBackground, iconUrl, id, name }, idx) => {
-  //               return (
-  //                 <Chain
-  //                   key={id}
-  //                   chainId={id}
-  //                   currentChainId={chainId}
-  //                   switchChain={switchChain}
-  //                   chainIconSize={chainIconSize}
-  //                   isLoading={pendingChainId === id}
-  //                   src={iconUrl}
-  //                   name={name}
-  //                   iconBackground={iconBackground}
-  //                   idx={idx}
-  //                 />
-  //               );
-  //             },
-  //           )}
-  //           {!isCurrentChainSupported && (
-  //             <>
-  //               <Box background="generalBorderDim" height="1" marginX="8" />
-  //               <MenuButton
-  //                 onClick={() => disconnect()}
-  //                 testId="chain-option-disconnect"
-  //               >
-  //                 <Box
-  //                   color="error"
-  //                   fontFamily="body"
-  //                   fontSize="16"
-  //                   fontWeight="bold"
-  //                 >
-  //                   <Box
-  //                     alignItems="center"
-  //                     display="flex"
-  //                     flexDirection="row"
-  //                     justifyContent="space-between"
-  //                   >
-  //                     <Box
-  //                       alignItems="center"
-  //                       display="flex"
-  //                       flexDirection="row"
-  //                       gap="4"
-  //                       height={chainIconSize}
-  //                     >
-  //                       <Box
-  //                         alignItems="center"
-  //                         color="error"
-  //                         height={chainIconSize}
-  //                         justifyContent="center"
-  //                         marginRight="8"
-  //                       >
-  //                         <DisconnectSqIcon size={Number(chainIconSize)} />
-  //                       </Box>
-  //                       <div>{i18n.t('chains.disconnect')}</div>
-  //                     </Box>
-  //                   </Box>
-  //                 </Box>
-  //               </MenuButton>
-  //             </>
-  //           )}
-  //         </Box>
-  //       </Box>
-  //     </DialogContent>
-  //   </Dialog>
-  // );
 }

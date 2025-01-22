@@ -5,7 +5,7 @@ import {
   hasInjectedProvider,
 } from '../../getInjectedConnector';
 import { getWalletConnectConnector } from '../../getWalletConnectConnector';
-import type { DefaultWalletOptions } from './../../Wallet';
+import type { DefaultWalletOptions } from '../../Wallet';
 
 export type BifrostWalletOptions = DefaultWalletOptions;
 

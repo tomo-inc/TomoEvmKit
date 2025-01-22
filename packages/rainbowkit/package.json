@@ -57,12 +57,12 @@
     "@vanilla-extract/css-utils": "0.1.4",
     "@vanilla-extract/private": "1.0.6",
     "autoprefixer": "^10.4.16",
-    "dotenv": "^16.4.5",
     "jsdom": "^25.0.0",
     "nock": "^13.4.0",
     "postcss": "^8.4.45",
     "react": "^18.3.1",
-    "vitest": "2.0.5"
+    "vitest": "2.0.5",
+    "dotenv": "^16.4.5"
   },
   "dependencies": {
     "@vanilla-extract/css": "1.15.5",
@@ -71,8 +71,6 @@
     "clsx": "2.1.1",
     "qrcode": "1.5.4",
     "react-remove-scroll": "2.6.0",
-    "@tomo-wallet/uikit": "0.0.3",
-    "@tomo-inc/social-wallet-sdk": "1.0.24-web.2",
     "ua-parser-js": "^1.0.37"
   },
   "repository": {

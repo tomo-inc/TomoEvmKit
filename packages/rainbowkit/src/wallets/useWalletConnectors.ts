@@ -5,7 +5,7 @@ import { indexBy } from '../utils/indexBy';
 import {
   useInitialChainId,
   useRainbowKitChains,
-} from './../components/RainbowKitProvider/RainbowKitChainContext';
+} from '../components/RainbowKitProvider/RainbowKitChainContext';
 import type { WagmiConnectorInstance, WalletInstance } from './Wallet';
 import {
   getDesktopDownloadUrl,
