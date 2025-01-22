@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { SharedState } from '../types/sharedState';
-import { wrap } from 'module';
 
 function usePip(iframe: Window) {
   const [pipState, setPipState] = useState<Partial<SharedState>>({});
@@ -66,31 +65,30 @@ const Example = () => {
 
   return (
     <>
-      <div>
-        <div
-          style={
-            {
-              // display: 'flex',
-              // width: '100%',
-              // boxSizing: 'border-box',
-              // justifyContent: 'space-between',
-            }
+      <div
+        style={
+          {
+            // display: 'flex',
+            // width: '100%',
+            // boxSizing: 'border-box',
+            // justifyContent: 'space-between',
           }
-          className="demo-header demo-header-spacing"
+        }
+        className="demo-header demo-header-spacing"
+      >
+        <Image src="/TomoConnect.png" alt={''} width={102} height={48} />
+        <a
+          href="https://docs.tomo.inc/tomo-sdk/tomoevmkit"
+          target="_blank"
+          rel="noreferrer"
         >
-          <Image src="/TomoConnect.png" alt={''} width={102} height={48} />
-          <a
-            href="https://docs.tomo.inc/tomo-sdk/tomoevmkit"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <button className="secondary-btn">
-              Docs
-              <Image src="./rightArrow.png" alt="" width={9} height={7.5} />
-            </button>
-          </a>
-        </div>
-        {/* <div
+          <button className="secondary-btn">
+            Docs
+            <Image src="./rightArrow.png" alt="" width={9} height={7.5} />
+          </button>
+        </a>
+      </div>
+      {/* <div
         style={{
           display: 'flex',
           justifyContent: 'flex-end',
@@ -114,133 +112,125 @@ const Example = () => {
         />
       </div> */}
 
-        <div className="demo-index-layout">
-          <div className="side-bar side-bar-spec">
-            <div id="supported-chains">
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  height: 32,
-                }}
-                className="supported-title"
-              >
-                Supported Chains
-                <button
-                  disabled={!openChainModalAvailable}
-                  onClick={openChainModal}
-                  type="button"
-                  style={{ height: '100%' }}
-                  className="secondary-btn"
-                >
-                  {chainName || 'open chain Modal'}
-                </button>
-              </div>
-              <Image
-                src="./supportedChains.png"
-                width={354}
-                height={112}
-                alt={''}
-              />
-            </div>
-            <div id="supported-social-logins">
-              <div className="supported-title" style={{ height: 27 }}>
-                Supported Social Logins
-              </div>
-              <Image
-                src="./supportedSocial.png"
-                width={354}
-                height={90}
-                alt={''}
-              />
-            </div>
-            <div id="supported-social-logins">
-              <div className="supported-title">Our features</div>
-              <Image src="./features.png" width={354} height={350} alt={''} />
-            </div>
-          </div>
-
-          <div
-            style={{
-              flexGrow: 1,
-              display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'column',
-            }}
-          >
-            <div
-              className={`modal-frame ${oneOfModalOpen ? 'modal-frame-mobile-visible' : ''}`}
-            >
-              {ready && (
-                <iframe
-                  style={{
-                    height: '100%',
-                    width: '100%',
-                  }}
-                  title="modal-picture-in-picture"
-                  src="/pip"
-                  ref={pipRef}
-                />
-              )}
-            </div>
+      <div className="demo-index-layout">
+        <div className="side-bar side-bar-spec">
+          <div id="supported-chains">
             <div
               style={{
                 display: 'flex',
-                width: '100%',
                 justifyContent: 'space-between',
-                padding: 30,
-                boxSizing: 'border-box',
-                borderLeft: '1px solid #E8E6F0',
                 alignItems: 'center',
-                flexWrap: 'wrap',
+                height: 32,
               }}
+              className="supported-title"
             >
-              {ready && (
-                <div>
-                  <div
-                    style={{
-                      fontFamily: 'sans-serif',
-                      fontSize: 18,
-                      marginBottom: 12,
-                    }}
-                  >
-                    Modal hooks
-                  </div>
-                  <div style={{ display: 'flex', gap: 12, paddingBottom: 12 }}>
-                    <button
-                      disabled={!openConnectModalAvailable}
-                      onClick={openConnectModal}
-                      type="button"
-                      className="secondary-btn"
-                    >
-                      {connectModalOpen
-                        ? 'Connect modal opened'
-                        : 'Open connect modal'}
-                    </button>
-                    <button
-                      disabled={!openChainModalAvailable}
-                      onClick={openChainModal}
-                      type="button"
-                      className="secondary-btn"
-                    >
-                      {chainModalOpen
-                        ? 'Chain modal opened'
-                        : 'Open chain modal'}
-                    </button>
-                    <button
-                      disabled={!openAccountModalAvailable}
-                      onClick={openAccountModal}
-                      type="button"
-                      className="secondary-btn"
-                    >
-                      {accountModalOpen
-                        ? 'Account modal opened'
-                        : 'Open account modal'}
-                    </button>
-                  </div>
+              Supported Chains
+              <button
+                disabled={!openChainModalAvailable}
+                onClick={openChainModal}
+                type="button"
+                style={{ height: '100%' }}
+                className="secondary-btn"
+              >
+                {chainName || 'open chain Modal'}
+              </button>
+            </div>
+            <Image
+              src="./supportedChains.png"
+              width={354}
+              height={112}
+              alt={''}
+            />
+          </div>
+          <div id="supported-social-logins">
+            <div className="supported-title" style={{ height: 27 }}>
+              Supported Social Logins
+            </div>
+            <Image
+              src="./supportedSocial.png"
+              width={354}
+              height={90}
+              alt={''}
+            />
+          </div>
+          <div id="supported-social-logins">
+            <div className="supported-title">Our features</div>
+            <Image src="./features.png" width={354} height={350} alt={''} />
+          </div>
+        </div>
+
+        <div
+          style={{
+            flexGrow: 1,
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column',
+          }}
+          className="main-content"
+        >
+          <div
+            className={`modal-frame ${oneOfModalOpen ? 'modal-frame-mobile-visible' : ''}`}
+          >
+            {ready && (
+              <iframe
+                style={{
+                  height: '100%',
+                  width: '100%',
+                }}
+                title="modal-picture-in-picture"
+                src="/pip"
+                ref={pipRef}
+              />
+            )}
+          </div>
+          <div id="frame-operator" className="frame-operator">
+            {ready && (
+              <div className="frame-operator-hooks">
+                <div
+                  style={{
+                    fontFamily: 'sans-serif',
+                    fontSize: 18,
+                    marginBottom: 12,
+                  }}
+                  className="modal-hooks-invisible"
+                >
+                  Modal hooks
                 </div>
-              )}
+                <div
+                  style={{ display: 'flex', gap: 12 /* paddingBottom: 12 */ }}
+                >
+                  <button
+                    disabled={!openConnectModalAvailable}
+                    onClick={openConnectModal}
+                    type="button"
+                    className="secondary-btn"
+                  >
+                    {connectModalOpen
+                      ? 'Connect modal opened'
+                      : 'Open connect modal'}
+                  </button>
+                  <button
+                    disabled={!openChainModalAvailable}
+                    onClick={openChainModal}
+                    type="button"
+                    className="secondary-btn"
+                  >
+                    {chainModalOpen ? 'Chain modal opened' : 'Open chain modal'}
+                  </button>
+                  <button
+                    disabled={!openAccountModalAvailable}
+                    onClick={openAccountModal}
+                    type="button"
+                    className="secondary-btn"
+                  >
+                    {accountModalOpen
+                      ? 'Account modal opened'
+                      : 'Open account modal'}
+                  </button>
+                </div>
+              </div>
+            )}
+            <div className="operator-btn-area">
               <a
                 href="http://t.me/tomowalletbot/tomo_sdk_demo"
                 target="_blank"

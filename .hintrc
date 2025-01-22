@@ -1,5 +1,7 @@
 {
-  "extends": ["development"],
+  "extends": [
+    "development"
+  ],
   "hints": {
     "axe/forms": [
       "default",
@@ -12,6 +14,7 @@
       {
         "aria-roles": "off"
       }
-    ]
+    ],
+    "disown-opener": "off"
   }
 }

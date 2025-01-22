@@ -6,6 +6,7 @@
        align-items: center;
        padding: 0;
        overflow: hidden;
+       height: calc(100vh - 98px);
      }
 
      .demo-header-spacing {
@@ -28,6 +29,66 @@
      }
 
      .side-bar-spec {}
+
+     .frame-operator {
+
+       background-color: #fff;
+       width: 100vw;
+       overflow: scroll;
+     }
+
+     .main-content {
+       position: sticky;
+       bottom: 0;
+     }
+
+     .frame-operator-hooks {
+       /* Auto layout */
+       display: flex;
+       align-items: center;
+       padding: 12px 24px;
+       gap: 20px;
+
+       /* height: 56px; */
+       overflow: scroll;
+
+       /* Demo/Gray/White */
+       background: #FFFFFF;
+       /* Demo/Purple/01 */
+       border-top: 1px solid #E8E6F0;
+
+       scrollbar-width: none;
+       /* Firefox */
+       -ms-overflow-style: none;
+       /* IE 和 Edge */
+
+       ::-webkit-scrollbar {
+         display: none;
+       }
+     }
+
+     .operator-btn-area {
+       /* Frame 2085662381 */
+
+       /* Auto layout */
+       display: flex;
+       flex-direction: column;
+       align-items: stretch;
+       padding: 12px 24px;
+       gap: 12px;
+
+       /* Demo/Gray/White */
+       background: #FFFFFF;
+       /* Demo/Purple/01 */
+       border-top: 1px solid #E8E6F0;
+
+       /* Inside auto layout */
+
+     }
+
+     .modal-hooks-invisible {
+       display: none;
+     }
    }
  }
 
@@ -41,7 +102,7 @@
        border: 1px solid #E8E6F0;
        border-radius: 12px;
        overflow: hidden;
-       height: 800px;
+       /* height: 800px; */
      }
 
      .demo-header-spacing {
@@ -63,6 +124,17 @@
        width: 420px;
        min-width: 420px;
        align-items: start;
+     }
+
+     .frame-operator {
+       display: flex;
+       width: 100%;
+       justify-content: space-between;
+       padding: 30px;
+       box-sizing: border-box;
+       border-left: 1px solid #E8E6F0;
+       align-items: center;
+       flex-wrap: wrap;
      }
    }
  }
@@ -199,7 +271,6 @@
 
      /* Auto layout */
      display: flex;
-     flex-direction: row;
      justify-content: center;
      align-items: center;
      padding: 7px 12px;
@@ -212,6 +283,8 @@
 
      border: none;
      font-weight: 400;
-
+     font-size: 12px;
+     line-height: 18px;
+     white-space: nowrap;
    }
  }
