@@ -1,23 +1,7 @@
-import React, { useEffect, useMemo } from 'react';
-import {
-  useAccount,
-  useChainId,
-  // useChains,
-  // useConnections,
-  // useConnectors,
-  useDisconnect,
-  useSwitchChain,
-  // useSwitchChain,
-} from 'wagmi';
-// import { useProfile } from '../../hooks/useProfile';
-// import { Dialog } from '../Dialog/Dialog';
-// import { DialogContent } from '../Dialog/DialogContent';
-// import { ProfileDetails } from '../ProfileDetails/ProfileDetails';
+import React, { useMemo } from 'react';
+import { useAccount, useChainId, useDisconnect } from 'wagmi';
 import { ConnectedModal, Theme } from '@tomo-wallet/uikit';
-import { useRainbowKitChains } from '../RainbowKitProvider/RainbowKitChainContext';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
-// import { useThemeRootProps } from '../RainbowKitProvider/RainbowKitProvider';
-import { Box } from '../Box/Box';
 import { useNetworkOptions } from '../useNetworkOptions';
 
 export interface AccountModalProps {
@@ -82,22 +66,4 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
       close
     />
   );
-  // return (
-  //   <>
-  //     {address && (
-  //       <Dialog onClose={onClose} open={open} titleId={titleId}>
-  //         <DialogContent bottomSheetOnMobile padding="0">
-  //           <ProfileDetails
-  //             address={address}
-  //             ensAvatar={ensAvatar}
-  //             ensName={ensName}
-  //             balance={balance}
-  //             onClose={onClose}
-  //             onDisconnect={disconnect}
-  //           />
-  //         </DialogContent>
-  //       </Dialog>
-  //     )}
-  //   </>
-  // );
 }
