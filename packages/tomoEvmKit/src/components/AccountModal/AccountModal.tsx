@@ -17,6 +17,8 @@ import { ConnectedModal, Theme } from '@tomo-wallet/uikit';
 import { useRainbowKitChains } from '../RainbowKitProvider/RainbowKitChainContext';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
 // import { useThemeRootProps } from '../RainbowKitProvider/RainbowKitProvider';
+import { Box } from '../Box/Box';
+import { useNetworkOptions } from '../useNetworkOptions';
 
 export interface AccountModalProps {
   open: boolean;
@@ -26,58 +28,18 @@ export interface AccountModalProps {
 export function AccountModal({ onClose, open }: AccountModalProps) {
   const { address, connector } = useAccount();
   const chainId = useChainId();
-  const rainbowKitChains = useRainbowKitChains();
-  const { switchChainAsync } = useSwitchChain();
-  // const connections = useConnections();
-  // const { balance, ensAvatar, ensName } = useProfile({
-  //   address,
-  //   includeBalance: open,
-  // });
   const { disconnect } = useDisconnect();
 
-  // const titleId = 'rk_account_modal_title';
+  const networkOptions = useNetworkOptions();
 
   const selectedNetwork = useMemo(() => {
-    const rbChain = rainbowKitChains.find((rc) => rc.id === chainId);
+    const network = networkOptions.find((rc) => rc.id === chainId);
     return {
       id: chainId,
-      name: rbChain?.name || '',
-      logo: (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: 24,
-            height: 24,
-          }}
-        >
-          <AsyncImage src={rbChain?.iconUrl || ''} fullWidth fullHeight />
-        </div>
-      ),
+      name: network?.name || '',
+      logo: network?.logo,
     };
-  }, [rainbowKitChains, chainId]);
-
-  const networkOptions = useMemo(() => {
-    return rainbowKitChains.map((rc) => ({
-      id: rc.id,
-      name: rc.name,
-      logo: (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: 32,
-            height: 32,
-          }}
-        >
-          <AsyncImage src={rc?.iconUrl || ''} fullWidth fullHeight />
-        </div>
-      ),
-      onClick: async () => {
-        await switchChainAsync({ chainId: rc.id });
-      },
-    }));
-  }, [rainbowKitChains, switchChainAsync]);
+  }, [networkOptions, chainId]);
 
   if (!address) {
     return null;

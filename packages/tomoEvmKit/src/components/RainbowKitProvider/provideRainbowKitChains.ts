@@ -58,7 +58,7 @@ type ChainName =
   | 'zoraTestnet'
   | 'scroll'
   | 'scrollSepolia'
-  | 'berachainTestnetbArtioIcon';
+  | 'berachainTestnetbArtio';
 
 type IconMetadata = {
   iconUrl: () => Promise<string>;
