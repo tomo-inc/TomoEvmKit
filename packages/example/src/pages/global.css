@@ -29,10 +29,11 @@
        visibility: visible;
      }
 
-     .side-bar-spec {}
+     .side-bar-spec {
+       padding: 20px 24px;
+     }
 
      .frame-operator {
-
        background-color: #fff;
        width: 100vw;
        overflow: scroll;
@@ -114,6 +115,11 @@
        background-color: #fff;
 
      }
+
+     .responsive-image-width {
+       max-width: 327px;
+       /* height: 112px; */
+     }
    }
  }
 
@@ -149,6 +155,7 @@
        width: 420px;
        min-width: 420px;
        align-items: start;
+       padding: 27px 30px;
      }
 
      .frame-operator {
@@ -160,10 +167,16 @@
        border-left: 1px solid #E8E6F0;
        align-items: center;
        flex-wrap: wrap;
+       gap: 12px
      }
 
      .mobile-connect-wallet-btn {
        display: none;
+     }
+
+     .responsive-image-width {
+       max-width: 354px;
+       /* height: 112px; */
      }
    }
  }
@@ -180,7 +193,6 @@
      /* Auto layout */
      display: flex;
      flex-direction: column;
-     padding: 27px 30px;
      gap: 28px;
      box-sizing: border-box;
      overflow: scroll;

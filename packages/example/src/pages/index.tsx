@@ -135,27 +135,41 @@ const Example = () => {
                 {chainName || 'open chain Modal'}
               </button>
             </div>
-            <Image
-              src="./supportedChains.png"
-              width={354}
-              height={112}
-              alt={''}
-            />
+            <div className="responsive-image-width">
+              <Image
+                src="./supportedChains.png"
+                width={354}
+                height={112}
+                alt={''}
+                layout="responsive"
+              />
+            </div>
           </div>
           <div id="supported-social-logins">
             <div className="supported-title" style={{ height: 27 }}>
               Supported Social Logins
             </div>
-            <Image
-              src="./supportedSocial.png"
-              width={354}
-              height={90}
-              alt={''}
-            />
+            <div className="responsive-image-width">
+              <Image
+                src="./supportedSocial.png"
+                width={354}
+                height={90}
+                alt={''}
+                layout="responsive"
+              />
+            </div>
           </div>
           <div id="supported-social-logins">
             <div className="supported-title">Our features</div>
-            <Image src="./features.png" width={354} height={350} alt={''} />
+            <div className="responsive-image-width">
+              <Image
+                src="./features.png"
+                width={354}
+                height={350}
+                alt={''}
+                layout="responsive"
+              />
+            </div>
           </div>
         </div>
 
