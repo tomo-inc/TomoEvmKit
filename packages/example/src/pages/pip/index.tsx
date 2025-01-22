@@ -100,12 +100,19 @@ const Page = () => {
       style={{
         display: 'flex',
         alignItems: 'center',
-        flexDirection: 'column',
         gap: 20,
         overflow: 'hidden',
         height: '100vh',
+        justifyContent: 'center',
       }}
     >
+      <button
+        disabled={!openConnectModal}
+        onClick={openConnectModal}
+        className="mobile-connect-wallet-btn mobile-invisible"
+      >
+        Connect Wallet
+      </button>
       {/* <div className='loader'/> */}
       {/* <div>
         <h3 style={{ fontFamily: 'sans-serif' }}>Modal hooks</h3>

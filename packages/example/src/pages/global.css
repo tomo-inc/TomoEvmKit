@@ -92,33 +92,12 @@
        display: none;
      }
 
-     .mobile-connect-wallet-btn {
-       /* Link */
-
-       box-sizing: border-box;
-
-       /* Auto layout */
-       display: flex;
-       flex-direction: row;
-       justify-content: center;
-       align-items: center;
-       padding: 12px 14px 12px 12px;
-       gap: 8px;
-
-       height: 42px;
-
-       /* Demo/Purple/06 */
-       border: 1px solid #4B407F;
-       border-radius: 8px;
-       font-size: 16px;
-       line-height: 24px;
-       background-color: #fff;
-
-     }
-
      .responsive-image-width {
        max-width: 327px;
-       /* height: 112px; */
+     }
+
+     button.mobile-invisible {
+       display: none;
      }
    }
  }
@@ -170,13 +149,13 @@
        gap: 12px
      }
 
-     .mobile-connect-wallet-btn {
-       display: none;
-     }
-
      .responsive-image-width {
        max-width: 354px;
        /* height: 112px; */
+     }
+
+     button.desktop-invisible {
+       display: none;
      }
    }
  }
@@ -348,5 +327,41 @@
      100% {
        transform: rotate(360deg);
      }
+   }
+
+   .mobile-connect-wallet-btn {
+     /* Link */
+
+     box-sizing: border-box;
+
+     /* Auto layout */
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     padding: 12px 14px 12px 12px;
+     gap: 8px;
+
+     height: 42px;
+
+     /* Demo/Purple/06 */
+     border: 1px solid #4B407F;
+     border-radius: 8px;
+     font-size: 16px;
+     line-height: 24px;
+     background-color: #fff;
+
+     font-family: Poppins;
+     font-size: 16px;
+     font-weight: 400;
+     line-height: 24px;
+     text-align: left;
+     text-underline-position: from-font;
+     text-decoration-skip-ink: none;
+
+     :enabled {
+       color: #4B407F;
+     }
+
    }
  }

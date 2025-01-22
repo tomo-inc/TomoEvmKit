@@ -245,28 +245,10 @@ const Example = () => {
               </div>
             )}
             <div className="operator-btn-area">
-              <a
-                href="http://t.me/tomowalletbot/tomo_sdk_demo"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <div className="tg-demo-link-btn">
-                  <Image
-                    width={24}
-                    height={24}
-                    alt=""
-                    style={{
-                      borderRadius: '50%',
-                    }}
-                    src="./tgIcon.png"
-                  />
-                  <div>See our Telegram SDK Demo</div>
-                </div>
-              </a>
               <button
                 disabled={!openConnectModalAvailable}
                 onClick={openConnectModal}
-                className="mobile-connect-wallet-btn"
+                className="mobile-connect-wallet-btn desktop-invisible"
               >
                 Connect Wallet
               </button>

@@ -45,13 +45,6 @@ export function ChainModal({ onClose, open }: ChainModalProps) {
     },
   });
 
-  // const { i18n } = useContext(I18nContext);
-
-  // const { disconnect } = useDisconnect();
-  // const titleId = 'rk_chain_modal_title';
-  // const mobile = isMobile();
-  // const isCurrentChainSupported = chains.some((chain) => chain.id === chainId);
-  // const chainIconSize = mobile ? '36' : '28';
   const rainbowkitChains = useRainbowKitChains();
 
   const networkOptions = useMemo(() => {
