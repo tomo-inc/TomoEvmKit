@@ -58,7 +58,8 @@ const Page = () => {
   const { chainModalOpen, openChainModal } = useChainModal();
   const { connectModalOpen, openConnectModal } = useConnectModal();
   const { disconnect } = useDisconnect();
-  const { chain } = useAccount();
+  const { chain, isConnected } = useAccount();
+  const [firstPopupFinished, setFirstPopupFinished] = useState(false);
 
   useStateSync({
     accountModalOpen,
@@ -72,7 +73,7 @@ const Page = () => {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: initial behavior on mount
   useEffect(() => {
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = window.parent?.innerWidth <= 768;
     if (!isMobile) openConnectModal?.();
     window.parent.postMessage({ type: 'PIP-ready' }, '*');
     window.onbeforeunload = () => {
@@ -80,17 +81,32 @@ const Page = () => {
     };
   }, []);
 
+  // automatically pop up account modal for first time
+  // biome-ignore lint/correctness/useExhaustiveDependencies: handle popup when address is settled
+  useEffect(() => {
+    if (!firstPopupFinished && isConnected) {
+      const isMobile = window.parent?.innerWidth <= 768;
+      if (isMobile) return;
+      openAccountModal?.();
+      setFirstPopupFinished(true);
+    }
+    if (firstPopupFinished && !isConnected) {
+      setFirstPopupFinished(false);
+    }
+  }, [isConnected]);
+
   return (
     <div
       style={{
-        flexGrow: 1,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
         gap: 20,
         overflow: 'hidden',
+        height: '100vh',
       }}
     >
+      {/* <div className='loader'/> */}
       {/* <div>
         <h3 style={{ fontFamily: 'sans-serif' }}>Modal hooks</h3>
         <div style={{ display: 'flex', gap: 12, paddingBottom: 12 }}>
