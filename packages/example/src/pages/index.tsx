@@ -249,11 +249,18 @@ const Example = () => {
                   <div>See our Telegram SDK Demo</div>
                 </div>
               </a>
+              <button
+                disabled={!openConnectModalAvailable}
+                onClick={openConnectModal}
+                className="mobile-connect-wallet-btn"
+              >
+                Connect Wallet
+              </button>
             </div>
           </div>
         </div>
       </div>
-      {/* <div className="sticky-bottom-btn">Connect Wallet</div> */}
+      {/*  */}
     </>
   );
 };

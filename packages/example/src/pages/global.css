@@ -10,7 +10,8 @@
      }
 
      .demo-header-spacing {
-       padding: 14px 24px
+       padding: 14px 24px;
+       border-bottom: 1px solid #E8E6F0;
      }
 
      .modal-frame {
@@ -89,6 +90,30 @@
      .modal-hooks-invisible {
        display: none;
      }
+
+     .mobile-connect-wallet-btn {
+       /* Link */
+
+       box-sizing: border-box;
+
+       /* Auto layout */
+       display: flex;
+       flex-direction: row;
+       justify-content: center;
+       align-items: center;
+       padding: 12px 14px 12px 12px;
+       gap: 8px;
+
+       height: 42px;
+
+       /* Demo/Purple/06 */
+       border: 1px solid #4B407F;
+       border-radius: 8px;
+       font-size: 16px;
+       line-height: 24px;
+       background-color: #fff;
+
+     }
    }
  }
 
@@ -135,6 +160,10 @@
        border-left: 1px solid #E8E6F0;
        align-items: center;
        flex-wrap: wrap;
+     }
+
+     .mobile-connect-wallet-btn {
+       display: none;
      }
    }
  }
