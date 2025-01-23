@@ -132,7 +132,7 @@ const Example = () => {
                 style={{ height: '100%' }}
                 className="secondary-btn"
               >
-                {chainName || 'Open chain Modal'}
+                {chainName || 'Open chain modal'}
               </button>
             </div>
             <div className="responsive-image-width">
