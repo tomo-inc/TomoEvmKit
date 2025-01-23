@@ -418,19 +418,19 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
   const socialOptions = [
     {
       key: 'google',
-      icon: <IconImg src={googleIcon} alt="google" />,
+      icon: <IconImg width={30} height={30} src={googleIcon} alt="google" />,
     },
     {
       key: 'twitter',
-      icon: <IconImg src={xIcon} alt="x" />,
+      icon: <IconImg width={30} height={30} src={xIcon} alt="x" />,
     },
     {
       key: 'kakao',
-      icon: <IconImg src={kakaoIcon} alt="kakao" />,
+      icon: <IconImg width={30} height={30} src={kakaoIcon} alt="kakao" />,
     },
     {
       key: 'telegram',
-      icon: <IconImg src={tgIcon} alt="telegram" />,
+      icon: <IconImg width={30} height={30} src={tgIcon} alt="telegram" />,
     },
   ];
 
