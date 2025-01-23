@@ -1,10 +1,6 @@
 import type { Transport } from 'viem';
-import {
-  createConnector,
-  http,
-  injected,
-  type CreateConfigParameters,
-} from 'wagmi';
+import { createConnector, http, type CreateConfigParameters } from 'wagmi';
+import { injected } from 'wagmi/connectors';
 import { createConfig } from 'wagmi';
 import type { RainbowKitChain } from '../components/RainbowKitProvider/RainbowKitChainContext';
 import type { Wallet, WalletList } from '../wallets/Wallet';
