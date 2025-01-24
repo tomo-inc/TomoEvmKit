@@ -44,6 +44,7 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
       onLogout={disconnect}
       selectedNetwork={selectedNetwork}
       networkOptions={networkOptions}
+      onChangePayPin={() => {}}
       accountInfo={{
         address,
         name: connector?.name || '',
