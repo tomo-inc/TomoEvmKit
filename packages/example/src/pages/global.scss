@@ -253,7 +253,7 @@
      width: 100%;
      /* height: 48px; */
 
-     font-family: 'Manrope';
+    //  font-family: 'Manrope';
      font-style: normal;
      font-weight: 700;
      font-size: 18px;
@@ -359,6 +359,7 @@
      text-align: left;
      text-underline-position: from-font;
      text-decoration-skip-ink: none;
+     color: #4B407F;
 
      :enabled {
        color: #4B407F;
