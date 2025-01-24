@@ -3,6 +3,7 @@ import { useAccount, useChainId, useDisconnect } from 'wagmi';
 import { ConnectedModal, Theme } from '@tomo-wallet/uikit';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
 import { useNetworkOptions } from '../useNetworkOptions';
+import type { EthereumProvider } from '@tomo-inc/social-wallet-sdk';
 
 export interface AccountModalProps {
   open: boolean;
@@ -44,7 +45,10 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
       onLogout={disconnect}
       selectedNetwork={selectedNetwork}
       networkOptions={networkOptions}
-      onChangePayPin={() => {}}
+      onChangePayPin={async () => {
+        const provider = (await connector?.getProvider()) as EthereumProvider;
+        provider?.core.changePayPin();
+      }}
       accountInfo={{
         address,
         name: connector?.name || '',
