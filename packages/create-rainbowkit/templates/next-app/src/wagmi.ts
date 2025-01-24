@@ -11,7 +11,6 @@ import {
 export const config = getDefaultConfig({
   appName: 'RainbowKit App',
   projectId: 'YOUR_PROJECT_ID',
-  clientId: 'YOUR_TOMO_CLIENT_ID',
   chains: [
     mainnet,
     polygon,

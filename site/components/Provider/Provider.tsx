@@ -41,7 +41,6 @@ const { wallets } = getDefaultWallets();
 const config = getDefaultConfig({
   appName: 'rainbowkit.com',
   projectId,
-  clientId: 'YOUR_TOMO_CLIENT_ID',
   chains: [
     mainnet,
     polygon,

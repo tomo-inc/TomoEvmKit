@@ -843,6 +843,9 @@ importers:
       react-remove-scroll:
         specifier: 2.6.0
         version: 2.6.0(@types/react@18.3.18)(react@18.3.1)
+      style-inject:
+        specifier: ^0.3.0
+        version: 0.3.0
       ua-parser-js:
         specifier: ^1.0.37
         version: 1.0.40
@@ -11876,6 +11879,9 @@ packages:
 
   structured-headers@0.4.1:
     resolution: {integrity: sha512-0MP/Cxx5SzeeZ10p/bZI0S6MpgD+yxAhi1BOQ34jgnMXsCq3j1t6tQnZu+KdlL7dvJTLT3g9xN8tl10TqgFMcg==}
+
+  style-inject@0.3.0:
+    resolution: {integrity: sha512-IezA2qp+vcdlhJaVm5SOdPPTUu0FCEqfNSli2vRuSIBbu5Nq5UvygTk/VzeCqfLz2Atj3dVII5QBKGZRZ0edzw==}
 
   style-loader@3.3.4:
     resolution: {integrity: sha512-0WqXzrsMTyb8yjZJHDqwmnwRJvhALK9LfRtRc6B4UTWe8AijYLZYZ9thuJTZc2VfQWINADW/j+LiJnfy2RoC1w==}
@@ -27692,6 +27698,8 @@ snapshots:
 
   structured-headers@0.4.1:
     optional: true
+
+  style-inject@0.3.0: {}
 
   style-loader@3.3.4(webpack@5.97.1(esbuild@0.20.2)):
     dependencies:
