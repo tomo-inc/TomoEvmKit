@@ -1,5 +1,5 @@
 import '@tomo-inc/tomo-evm-kit/styles.css';
-import './global.css';
+import './global.scss';
 
 import type { Session } from 'next-auth';
 import type { AppProps } from 'next/app';
