@@ -73,8 +73,9 @@ const Page = () => {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: initial behavior on mount
   useEffect(() => {
-    const isMobile = window.parent?.innerWidth <= 768;
-    if (!isMobile) openConnectModal?.();
+    // const isMobile = window.parent?.innerWidth <= 768;
+    // if (!isMobile)
+    openConnectModal?.();
     window.parent.postMessage({ type: 'PIP-ready' }, '*');
     window.onbeforeunload = () => {
       disconnect();
