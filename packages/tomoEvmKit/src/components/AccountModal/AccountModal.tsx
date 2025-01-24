@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useAccount, useChainId, useDisconnect } from 'wagmi';
 import { ConnectedModal, Theme } from '@tomo-wallet/uikit';
 import { AsyncImage } from '../AsyncImage/AsyncImage';
@@ -26,6 +26,9 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
     };
   }, [networkOptions, chainId]);
 
+  const connectorName = connector?.name;
+  const showSetting = connectorName === 'Tomo Wallet';
+
   if (!address) {
     return null;
   }
@@ -49,6 +52,7 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
         const provider = (await connector?.getProvider()) as EthereumProvider;
         provider?.core.changePayPin();
       }}
+      showSetting={showSetting}
       accountInfo={{
         address,
         name: connector?.name || '',

@@ -820,8 +820,8 @@ importers:
         specifier: 1.1.0-beta
         version: 1.1.0-beta(bufferutil@4.0.9)(expo@52.0.23(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(bufferutil@4.0.9)(graphql@16.10.0)(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(utf-8-validate@5.0.10))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.24.1)
       '@tomo-wallet/uikit':
-        specifier: 0.0.5
-        version: 0.0.5(@babel/runtime@7.26.0)(@types/react@18.3.18)(core-js-pure@3.39.0)(prop-types@15.8.1)(react@18.3.1)
+        specifier: 0.0.6
+        version: 0.0.6(@babel/runtime@7.26.0)(@types/react@18.3.18)(core-js-pure@3.39.0)(prop-types@15.8.1)(react@18.3.1)
       '@vanilla-extract/css':
         specifier: 1.15.5
         version: 1.15.5(babel-plugin-macros@3.1.0)
@@ -4459,8 +4459,8 @@ packages:
   '@tomo-inc/social-wallet-sdk@1.1.0-beta':
     resolution: {integrity: sha512-FOHRQ225Dr9jpjIYH1GAmlD17pPHc3RkEKPPmxscukVL75iq+BhAXTnUeIp/iCf0uQ4obWe2CZkV5FXMI5M2Aw==}
 
-  '@tomo-wallet/uikit@0.0.5':
-    resolution: {integrity: sha512-eFZnDehJTq6198OFi5FNj+kCzSMh/N/ZoscA16rgWcH9+6DLBmQxWeqYhZmG13ZClmNYvwgqM2ml7lHRvJk1cg==}
+  '@tomo-wallet/uikit@0.0.6':
+    resolution: {integrity: sha512-fGMOacRt9fyH4xFFP2ECCDXp43gImzA7lpN6tEutm+IJWquqOgTngO74ByHgr4t67HPBhjUMPxL3WcRw5nvlRg==}
 
   '@tootallnate/once@1.1.2':
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}
@@ -17732,7 +17732,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@tomo-wallet/uikit@0.0.5(@babel/runtime@7.26.0)(@types/react@18.3.18)(core-js-pure@3.39.0)(prop-types@15.8.1)(react@18.3.1)':
+  '@tomo-wallet/uikit@0.0.6(@babel/runtime@7.26.0)(@types/react@18.3.18)(core-js-pure@3.39.0)(prop-types@15.8.1)(react@18.3.1)':
     dependencies:
       '@emotion/react': 11.14.0(@types/react@18.3.18)(react@18.3.1)
       '@emotion/styled': 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
