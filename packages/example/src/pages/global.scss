@@ -253,7 +253,7 @@
      width: 100%;
      /* height: 48px; */
 
-    //  font-family: 'Manrope';
+     //  font-family: 'Manrope';
      font-style: normal;
      font-weight: 700;
      font-size: 18px;
@@ -306,7 +306,11 @@
      font-size: 12px;
      line-height: 18px;
      white-space: nowrap;
-     color: black;
+
+     :enabled {
+       color: black;
+     }
+
    }
 
    .loader {
