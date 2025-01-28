@@ -1,4 +1,3 @@
-// biome-ignore lint/style/useImportType: <explanation>
 import React from 'react';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -43,23 +42,12 @@ import type {
 } from '@tomo-inc/social-wallet-sdk/dist/types/types';
 import { connectMobile } from './connectMobile';
 import { isMobile } from '../../utils/isMobile';
+import { writeSocialLoginType } from './socialLoginTypeSL';
+import { IconImg } from '../IconImg';
 
 interface Props {
   opened: boolean;
   onClose: () => any;
-}
-
-function IconImg({
-  className,
-  src,
-  alt,
-  ...props
-}: React.DetailedHTMLProps<
-  React.ImgHTMLAttributes<HTMLImageElement>,
-  HTMLImageElement
->) {
-  // biome-ignore lint/a11y/useAltText: no need
-  return <img alt={alt || ''} src={src} {...props} className={className} />;
 }
 
 export function TomoConnectModalInner({ opened, onClose }: Props) {
@@ -497,6 +485,8 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
         // toast.error(e?.message || 'Failed');
         console.log('login error', e);
       }
+      /** assume from here login type is finalized */
+      writeSocialLoginType(loginType);
     }
   };
 
@@ -529,6 +519,8 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
         } catch (e: any) {
           console.log('login error', e);
         }
+        /** assume from here login type is finalized */
+        writeSocialLoginType('email');
       }
     }
   };

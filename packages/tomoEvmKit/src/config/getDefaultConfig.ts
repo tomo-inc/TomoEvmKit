@@ -58,7 +58,7 @@ const createDefaultTransports = <
   return transportsObject;
 };
 
-const logoUrl = 'https://d13t1x9bdoguib.cloudfront.net/static/tomo.svg';
+const logoUrl = 'https://d13t1x9bdoguib.cloudfront.net/static/logo.svg';
 function makeTomoWalletFn({
   clientId = '',
   connect,
