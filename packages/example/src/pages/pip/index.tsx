@@ -86,8 +86,8 @@ const Page = () => {
   // biome-ignore lint/correctness/useExhaustiveDependencies: handle popup when address is settled
   useEffect(() => {
     if (!firstPopupFinished && isConnected) {
-      const isMobile = window.parent?.innerWidth <= 768;
-      if (isMobile) return;
+      // const isMobile = window.parent?.innerWidth <= 768;
+      // if (isMobile) return;
       openAccountModal?.();
       setFirstPopupFinished(true);
     }
