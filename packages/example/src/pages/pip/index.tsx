@@ -96,6 +96,23 @@ const Page = () => {
     }
   }, [isConnected]);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.parent?.innerWidth <= 768); // 768px is a common breakpoint for mobile devices
+    };
+
+    // Initial check
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div
       style={{
@@ -107,13 +124,15 @@ const Page = () => {
         justifyContent: 'center',
       }}
     >
-      <button
-        disabled={!openConnectModal}
-        onClick={openConnectModal}
-        className="mobile-connect-wallet-btn mobile-invisible"
-      >
-        Connect Wallet
-      </button>
+      {!isMobile && (
+        <button
+          disabled={!openConnectModal}
+          onClick={openConnectModal}
+          className="mobile-connect-wallet-btn"
+        >
+          Connect Wallet
+        </button>
+      )}
       {/* <div className='loader'/> */}
       {/* <div>
         <h3 style={{ fontFamily: 'sans-serif' }}>Modal hooks</h3>

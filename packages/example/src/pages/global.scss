@@ -1,3 +1,9 @@
+ @media (max-width: 420px) {
+    button.mobile-invisible {
+       display: none !important;
+     }
+ }
+
  @media (max-width: 768px) {
    body {
      .demo-index-layout {
@@ -94,10 +100,6 @@
 
      .responsive-image-width {
        max-width: 327px;
-     }
-
-     button.mobile-invisible {
-       display: none;
      }
    }
  }
