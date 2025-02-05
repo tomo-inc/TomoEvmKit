@@ -11,7 +11,9 @@ export const safeWallet = (): Wallet => ({
   installed:
     // Only allowed in iframe context
     // borrowed from wagmi safe connector
-    !(typeof window === 'undefined') && window?.parent !== window,
+    !(typeof window === 'undefined') &&
+    window?.parent !== window &&
+    window?.parent.location.href.includes('open?safe='),
   downloadUrls: {
     // We're opting not to provide a download prompt if the application is not
     // already running as a Safe App within the context of the Safe browser,
