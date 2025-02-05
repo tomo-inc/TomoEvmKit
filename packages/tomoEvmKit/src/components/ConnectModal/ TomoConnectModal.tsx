@@ -223,8 +223,9 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: on mount logic
   useEffect(() => {
-    let walletOpts: (WalletItemProps & { wallet: WalletConnector })[] =
-      wallets.map((w) => {
+    let walletOpts: (WalletItemProps & { wallet: WalletConnector })[] = wallets
+      .filter((w) => !isMobile() || w.ready)
+      .map((w) => {
         let desc = '';
         if (w.installed || w.groupName === 'Installed') desc = 'Installed';
         else {
