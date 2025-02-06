@@ -35,7 +35,10 @@ import xIcon from '../../../assets/icon_x.svg';
 import kakaoIcon from '../../../assets/icon_kakao.svg';
 import tgIcon from '../../../assets/icon_telegram.svg';
 import type { EthereumProvider } from '@tomo-inc/social-wallet-sdk';
-import { useThemeRootProps } from '../RainbowKitProvider/RainbowKitProvider';
+import {
+  ThemeTypeContext,
+  useThemeRootProps,
+} from '../RainbowKitProvider/RainbowKitProvider';
 import type {
   LoginType,
   UserSocialInfo,
@@ -403,6 +406,8 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
       break;
   }
 
+  const theme = useContext(ThemeTypeContext);
+
   // todo: need to be configurable
   const socialOptions = [
     {
@@ -411,7 +416,9 @@ export function TomoConnectModalInner({ opened, onClose }: Props) {
     },
     {
       key: 'twitter',
-      icon: <IconImg width={30} height={30} src={xIcon} alt="x" />,
+      icon: (
+        <IconImg width={30} height={30} src={xIcon} alt="x" theme={theme} />
+      ),
     },
     {
       key: 'kakao',
