@@ -64,6 +64,7 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
   useEffect(() => {
     const type = readSocialLoginType();
     if (type) setLoginType(type);
+    if (!isConnected) writeSocialLoginType('');
   }, [isConnected]);
 
   const LoginTypeIcon = (loginTypeIcon as any)[loginType];
@@ -80,9 +81,6 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
       theme={Theme.LIGHT}
       onLogout={() => {
         disconnect();
-        /** set login type to empty here if applicable */
-        const loginType = readSocialLoginType();
-        if (loginType) writeSocialLoginType('');
       }}
       selectedNetwork={selectedNetwork}
       networkOptions={networkOptions}
