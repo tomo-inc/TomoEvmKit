@@ -17,8 +17,8 @@ export function useNetworkOptions() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            width: 32,
-            height: 32,
+            width: 24,
+            height: 24,
           }}
         >
           {rc?.iconUrl ? (
@@ -28,8 +28,8 @@ export function useNetworkOptions() {
               style={{
                 color: '#8989AB',
                 backgroundColor: '#EBEBF4',
-                width: 32,
-                height: 32,
+                width: 24,
+                height: 24,
                 borderRadius: '50%',
                 display: 'flex',
                 justifyContent: 'center',
