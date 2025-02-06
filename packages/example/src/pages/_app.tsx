@@ -96,6 +96,17 @@ function RainbowKitApp({
 
   const appContextProps: AppContextProps = { authEnabled };
 
+  const [themeType, setThemeType] = useState<'light' | 'dark'>('light');
+
+  useEffect(() => {
+    (window as any).toggleTheme = () => {
+      setThemeType((theme) => {
+        if (theme === 'dark') return 'light';
+        return 'dark';
+      });
+    };
+  }, []);
+
   // const locales = router.locales as Locale[];
 
   // Note: Non-RainbowKit providers are wrapped around this component
@@ -110,6 +121,7 @@ function RainbowKitApp({
       avatar={customAvatar ? CustomAvatar : undefined}
       locale={locale}
       initialChain={selectedInitialChainId}
+      theme={themeType}
     >
       <div
         style={{
