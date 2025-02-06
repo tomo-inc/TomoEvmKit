@@ -43,6 +43,7 @@ export function ActionButton({
   target = '_blank',
   testId,
   type = 'primary',
+  darkLabel = false,
 }: {
   href?: string;
   label: string;
@@ -53,6 +54,7 @@ export function ActionButton({
   type?: 'primary' | 'secondary';
   disabled?: boolean;
   testId?: string;
+  darkLabel?: boolean;
 }) {
   const isPrimary = type === 'primary';
   const isNotLarge = size !== 'large';
@@ -109,6 +111,13 @@ export function ActionButton({
         }
         size={fontSize}
         weight="bold"
+        style={
+          darkLabel
+            ? {
+                color: '#12122A',
+              }
+            : {}
+        }
       >
         {label}
       </Text>

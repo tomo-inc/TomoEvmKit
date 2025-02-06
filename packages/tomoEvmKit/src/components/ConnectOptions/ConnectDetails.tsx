@@ -23,6 +23,7 @@ import { I18nContext } from '../RainbowKitProvider/I18nContext';
 import { ModalSizeContext } from '../RainbowKitProvider/ModalSizeContext';
 import { Text } from '../Text/Text';
 import { WalletStep } from './DesktopOptions';
+import { ThemeTypeContext } from '../RainbowKitProvider/RainbowKitProvider';
 
 const getBrowserSrc: () => Promise<string> = async () => {
   const browser = getBrowser();
@@ -441,6 +442,7 @@ const DownloadOptionsBox = ({
   iconBackground?: string;
   variant: 'browser' | 'app' | 'desktop';
 }) => {
+  const themeType = useContext(ThemeTypeContext);
   return (
     <Box
       alignItems="center"
@@ -468,12 +470,13 @@ const DownloadOptionsBox = ({
           right: '0',
           top: '0',
           zIndex: 1,
-          background: 'white',
+          background: themeType === 'dark' ? '#121212' : 'white',
           border: '1px solid #EBEBF4',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           padding: '24px 12px',
+          borderColor: themeType === 'dark' ? '#444' : '#EBEBF4',
         }}
       >
         <Box
@@ -510,7 +513,19 @@ const DownloadOptionsBox = ({
               >
                 {title}
               </Text>
-              <Text color="modalTextSecondary" size="13" weight="medium">
+              <Text
+                color="modalTextSecondary"
+                size="13"
+                weight="medium"
+                style={
+                  themeType === 'dark'
+                    ? {
+                        opacity: 0.4,
+                        color: '#fff',
+                      }
+                    : {}
+                }
+              >
                 {description}
               </Text>
             </Box>
@@ -526,6 +541,7 @@ const DownloadOptionsBox = ({
               label={actionLabel}
               onClick={onAction}
               size="medium"
+              darkLabel={themeType === 'dark'}
             />
           </Box>
         </Box>
