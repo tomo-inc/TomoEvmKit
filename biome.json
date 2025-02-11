@@ -56,7 +56,7 @@
     }
   },
   "organizeImports": {
-    "enabled": true
+    "enabled": false
   },
   "vcs": {
     "enabled": true,

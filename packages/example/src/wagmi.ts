@@ -1,4 +1,4 @@
-import { type Chain, getDefaultConfig } from '@rainbow-me/rainbowkit';
+import { type Chain, getDefaultConfig } from '@tomo-inc/tomo-evm-kit';
 import {
   argentWallet,
   berasigWallet,
@@ -60,7 +60,7 @@ import {
   xdefiWallet,
   zealWallet,
   zerionWallet,
-} from '@rainbow-me/rainbowkit/wallets';
+} from '@tomo-inc/tomo-evm-kit/wallets';
 import { publicActions } from 'viem';
 import {
   arbitrum,
@@ -92,6 +92,7 @@ import {
   zkSync,
   zora,
   zoraSepolia,
+  berachainTestnetbArtio,
 } from 'wagmi/chains';
 
 const projectId =
@@ -152,9 +153,26 @@ const ink = {
 // Testing `preference` type
 coinbaseWallet.preference = 'all';
 
+const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production';
+
+console.log('NEXT_PUBLIC_APP_ENV', process.env.NEXT_PUBLIC_APP_ENV);
+
+const clientId = isProd
+  ? process.env.NEXT_PUBLIC_TOMO_CLIENT_ID_PROD
+  : process.env.NEXT_PUBLIC_TOMO_CLIENT_ID_DEV;
+
 export const config = getDefaultConfig({
-  appName: 'RainbowKit Demo',
+  appName: 'TomoEvmKit Demo',
   projectId,
+  clientId: clientId,
+  ...(isProd
+    ? {}
+    : {
+        devOption: {
+          relayBase: 'https://social-relay-dev.tomo.inc',
+          connect: 'https://app.unyx.tech/api/',
+        },
+      }),
   chains: [
     mainnet,
     polygon,
@@ -173,25 +191,26 @@ export const config = getDefaultConfig({
     sei,
     mantle,
     celo,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true'
-      ? [
-          sepolia,
-          holesky,
-          polygonMumbai,
-          optimismSepolia,
-          arbitrumSepolia,
-          baseSepolia,
-          bscTestnet,
-          avalancheFuji,
-          zoraSepolia,
-          blastSepolia,
-          inkSepolia,
-          zetachainAthensTestnet,
-          klaytnBaobab,
-          mantleTestnet,
-          celoAlfajores,
-        ]
-      : []),
+    // ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true'
+    // ? [
+    sepolia,
+    holesky,
+    polygonMumbai,
+    optimismSepolia,
+    arbitrumSepolia,
+    baseSepolia,
+    bscTestnet,
+    avalancheFuji,
+    zoraSepolia,
+    blastSepolia,
+    inkSepolia,
+    zetachainAthensTestnet,
+    klaytnBaobab,
+    mantleTestnet,
+    celoAlfajores,
+    berachainTestnetbArtio,
+    // ]
+    // : []),
   ],
   wallets: [
     {

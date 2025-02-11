@@ -2,20 +2,20 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getToken } from 'next-auth/jwt';
 import React from 'react';
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const token = await getToken({ req });
-  const address = token?.sub ?? null;
+// export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+//   const token = await getToken({ req });
+//   const address = token?.sub ?? null;
 
-  return {
-    props: {
-      address,
-    },
-  };
-};
+//   return {
+//     props: {
+//       address,
+//     },
+//   };
+// };
 
-type MeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+// type MeProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const Me = ({ address }: MeProps) => {
+const Me = ({ address }: any) => {
   return (
     <div style={{ marginBottom: '100vh' }}>
       {address !== '0x2896d64dB515686DB0CB8D8F084eF67e492687B8' ? (
